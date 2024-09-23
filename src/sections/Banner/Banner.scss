@@ -1,0 +1,369 @@
+@import "../../sass/colors.scss";
+@import "../../sass/animations.scss";
+
+.grow-shrink {
+  animation: grow-shrink 8s ease-in-out infinite;
+}
+.gelatine {
+  animation: gelatine 0.5s infinite;
+}
+.complex-motion-fast {
+  animation: complex-motion 8s ease-in-out infinite;
+}
+.complex-motion-long {
+  animation: complex-motion 16s ease-in-out infinite;
+}
+.swing {
+  animation: swing 2s ease-in-out infinite;
+}
+.wave {
+  transform-origin: center bottom;
+  animation: wave-motion 20s ease-in-out infinite;
+}
+.banner-section {
+  height: 800px;
+  margin-top: 100px;
+  position: relative;
+  z-index: 1;
+
+  .banner-pattern {
+    position: absolute;
+    top: 10%;
+    right: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+  }
+}
+
+.banner-text {
+  h1 {
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+  .banner-bottom {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .none-decor {
+      width: 300px;
+      background-color: rgb(255 255 255 / 30%);
+      padding: 20px 30px;
+      border-radius: 15px;
+      display: block;
+      margin-top: 20px;
+    }
+    .theme-btn {
+      margin-right: 50px;
+
+      a {
+        padding: 20px 25px;
+      }
+    }
+
+    .banner-call {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        width: 35px;
+        height: 35px;
+        margin-right: 30px;
+        background: $color-white;
+        line-height: 35px;
+        text-align: center;
+        border-radius: 12px;
+        position: relative;
+        z-index: 1;
+        transform-origin: center bottom;
+        animation-name: trin;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: -35%;
+          left: -35%;
+          width: 60px;
+          height: 60px;
+          background: #ffffff;
+          z-index: -1;
+          opacity: 0.2;
+          border-radius: 17px;
+          box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.841);
+        }
+      }
+
+      .call-text {
+        a {
+          text-decoration: none;
+        }
+        p {
+          font-size: 14px;
+          text-transform: uppercase;
+          color: $color-blue;
+          font-weight: 700;
+          margin-bottom: 5px;
+        }
+
+        h6 {
+          font-size: 18px;
+          text-transform: uppercase;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+.banner-img-area {
+  position: relative;
+  text-align: center;
+
+  .banner-img {
+    margin-bottom: -150px;
+    filter: drop-shadow(0 0 15px rgba(0, 0, 0, 1));
+    img {
+      width: 75%;
+    }
+  }
+
+  .info-box {
+    position: absolute;
+    bottom: 5%;
+    background: $color-white;
+    border-radius: 15px;
+    padding: 10px;
+    display: flex;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.9;
+    .info-img {
+      margin-right: 10px;
+    }
+
+    .info-text {
+      text-align: center;
+
+      p {
+        margin-bottom: 0;
+        color: $color-black;
+        font-size: 16px;
+        font-weight: 600;
+
+        small {
+          color: $color-gray;
+        }
+      }
+    }
+  }
+
+  .shapes {
+    img {
+      position: absolute;
+
+      &:nth-child(1) {
+        left: 0;
+        top: 0;
+      }
+      &:nth-child(2) {
+        right: 0;
+        top: 0;
+      }
+      &:nth-child(3) {
+        right: 0;
+        top: 40%;
+      }
+      &:nth-child(4) {
+        left: 10%;
+        top: 30%;
+        z-index: -1;
+      }
+    }
+  }
+}
+
+// Mobile Responsive
+@media (max-width: 575px) {
+  // Banner CSS
+  .banner-section {
+    height: 100%;
+    margin-top: 70px;
+  }
+  .banner-img-area {
+    .banner-img {
+      margin-bottom: 0;
+    }
+
+    .shapes {
+      img {
+        &:nth-child(1) {
+          max-width: 70px;
+        }
+      }
+    }
+  }
+  .banner-text {
+    text-align: center;
+    padding-top: 30px;
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .banner-bottom {
+      margin-top: 40px;
+      margin-bottom: 30px;
+      display: block;
+
+      .theme-btn {
+        margin-right: 0px;
+        margin-bottom: 20px;
+
+        a {
+          padding: 15px 20px;
+        }
+      }
+
+      .banner-call {
+        justify-content: center;
+
+        .call-text {
+          text-align: left;
+          p {
+            font-size: 12px;
+          }
+
+          h6 {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  // Banner CSS
+  .banner-section {
+    height: 100%;
+    margin-top: 70px;
+  }
+  .banner-img-area {
+    .banner-img {
+      margin-bottom: 0;
+    }
+
+    .shapes {
+      img {
+        &:nth-child(1) {
+          max-width: 70px;
+        }
+      }
+    }
+  }
+  .banner-text {
+    text-align: center;
+    padding-top: 30px;
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .banner-bottom {
+      margin-top: 40px;
+      margin-bottom: 30px;
+      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .theme-btn {
+        margin-right: 0px;
+        margin-bottom: 20px;
+
+        a {
+          padding: 15px 20px;
+        }
+      }
+
+      .banner-call {
+        justify-content: center;
+
+        .call-text {
+          text-align: left;
+          p {
+            font-size: 12px;
+          }
+
+          h6 {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Medium Devices Responsive
+@media (min-width: 768px) and (max-width: 991px) {
+  // Banner CSS
+  .banner-section {
+    height: 100%;
+    margin-top: 70px;
+  }
+  .banner-img-area {
+    .banner-img {
+      margin-bottom: 0;
+    }
+
+    .shapes {
+      img {
+        &:nth-child(1) {
+          max-width: 70px;
+        }
+      }
+    }
+  }
+  .banner-text {
+    text-align: center;
+    padding-top: 30px;
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .banner-bottom {
+      justify-content: center;
+    }
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .banner-img {
+    img {
+      width: 100% !important;
+    }
+  }
+  .banner-text {
+    h1 {
+      font-size: 45px;
+      margin-bottom: 25px;
+    }
+
+    .banner-bottom {
+      margin-top: 40px;
+    }
+  }
+}
