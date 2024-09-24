@@ -4,7 +4,6 @@ import "./Services.scss";
 import ServicesData from "./ServiceData";
 import Service from "../../components/Service/Service";
 import { Link } from "react-router-dom";
-import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
 const Services = () => {
   return (
@@ -17,8 +16,8 @@ const Services = () => {
         <div className="row">
           <div className="col-lg-6 col-sm-6">
             <SectionTitle
-              title="Feel amazing about your oral health"
-              subTitle="Services"
+              title="КАКОЙ_ТО ТЕКСТ"
+              subTitle="КАКОЙ_ТО ТЕКСТ"
             />
           </div>
           <div className="col-lg-6 col-sm-6">
@@ -37,11 +36,8 @@ const Services = () => {
         </div>
       </div>
 
-      <div className="services-link text-center">
-        <Link to="/">
-          View all service list
-          <BsFillArrowRightCircleFill />
-        </Link>
+      <div className="theme-btn text-center">
+        <Link to="/contact">Записаться на приём</Link>
       </div>
     </section>
   );

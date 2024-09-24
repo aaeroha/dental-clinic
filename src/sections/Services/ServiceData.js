@@ -1,36 +1,36 @@
 import iconOne from "../../assets/service/1.png";
 import iconTwo from "../../assets/service/2.png";
 import iconThree from "../../assets/service/3.png";
-import iconFour from "../../assets/service/4.png";
+import iconFour from "../../assets/features/1.png";
 
 const ServicesData = [
   {
     id: 1,
     icon: iconOne,
-    title: "Dentures",
+    title: "Cтрах остаться без зубов в эстетически значимой зоне?",
     description:
-      "Lorem ipsum is placeholder text commonly used in the graphic,",
+      "Временные коронки изготовленные до операции решают и эту проблему. После операции вы выйдете из кабинета с красивой улыбкой!",
   },
   {
     id: 2,
     icon: iconTwo,
-    title: "Implants",
+    title: "Дискомфортно использовать протезы?",
     description:
-      "Lorem ipsum is placeholder text commonly used in the graphic,",
+      "Несъемные конструкции отфрезерованные из циркония или композита с опорой на 6 или 4 имплантата избавят вас от неудобств!",
   },
   {
     id: 3,
     icon: iconThree,
-    title: "Whitening",
-    description:
-      "Lorem ipsum is placeholder text commonly used in the graphic,",
+    title: "Имплантация одномоментно с удалением зуба?",
+    description: `Не вопрос! Высокотехнологичный дизайн имплантов позволяет получить отличную первичную стабильность даже в условиях дефицита костной ткани. 
+    Мой многолетний опыт и многочисленные международные исследования подтверждают, что атрофия костной ткани при одномоментной имплантации происходит в значительно меньшем объеме, нежели классический двухэтапный протокол.`,
   },
   {
     id: 4,
     icon: iconFour,
-    title: "Root Canal",
+    title: "Остались вопросы ?",
     description:
-      "Lorem ipsum is placeholder text commonly used in the graphic,",
+      "Я готов помочь решить вам эти и многие другие проблемы. Приходите на консультацию!",
   },
 ];
 

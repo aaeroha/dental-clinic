@@ -7,8 +7,9 @@ const featuresData = [
   {
     id: 1,
     icon: iconOne,
-    title: "Safety first",
-    description: "We prioritize safety with health checks and more",
+    title: "Cтрах остаться без зубов в эстетически значимой зоне?",
+    description:
+      "Временные коронки изготовленные до операции решают и эту проблему. После операции вы выйдете из кабинета с красивой улыбкой!",
   },
   {
     id: 2,

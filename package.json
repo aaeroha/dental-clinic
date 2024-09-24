@@ -8,12 +8,15 @@
     "aos": "^3.0.0-beta.6",
     "bootstrap": "^5.2.2",
     "react": "^18.2.0",
+    "react-before-after-slider-component": "^1.1.8",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
+    "react-multi-carousel": "^2.8.5",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
     "sass": "^1.55.0",
+    "swiper": "^11.1.14",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
