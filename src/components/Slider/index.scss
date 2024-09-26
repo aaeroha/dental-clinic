@@ -1,9 +1,13 @@
 @import "../../sass/colors.scss";
 .slider {
+  // height: 500px;
   .react-multiple-carousel__arrow--right,
   .react-multiple-carousel__arrow--left {
-    min-width: 73px;
-    min-height: 73px;
+    background: #583fbc;
+    min-width: 53px;
+    min-height: 53px;
+    border: solid 1px #ffffff96;
+    opacity: 0.8;
   }
   .before-after-slider__delimiter-icon,
   .before-after-slider__delimiter {
@@ -11,6 +15,7 @@
   }
   .react-multiple-carousel__arrow::before {
     font-size: 30px;
+    font-weight: 900;
   }
   .swiper {
     width: 100%;
@@ -33,6 +38,41 @@
     height: 100%;
     object-fit: cover;
   }
+  .react-multi-carousel-dot button {
+    opacity: 0.9;
+    background: #c0b0ff;
+    box-shadow: inset 0px 0px 2px 2px rgb(0 0 0 / 70%);
+    width: 25px;
+    height: 25px;
+    border: 1px solid rgb(0 0 0 / 50%);
+    margin-right: 15px;
+  }
+  .react-multi-carousel-dot--active button {
+    width: 32px;
+    height: 32px;
+    background: #583fbc;
+    box-shadow: inset 0px 0px 6px 5px rgb(0 0 0 / 56%);
+  }
+  .react-multi-carousel-dot-list {
+    align-items: center;
+  }
+  .before-after-slider {
+    // height: 167px;
+  }
+  .react-multi-carousel-track {
+    margin-bottom: 60px;
+  }
+  .react-multi-carousel-item {
+    padding-right: 20px;
+  }
+  // .before-after-slider,
+  .before-after-slider__second-photo-container,
+  .before-after-slider__first-photo-container {
+    height: 260px;
+    img {
+      height: 100%;
+    }
+  }
 }
 
 // Mobile Responsive
@@ -40,11 +80,11 @@
   .slider {
     .react-multiple-carousel__arrow--right,
     .react-multiple-carousel__arrow--left {
-      min-width: 43px;
-      min-height: 43px;
+      // min-width: 43px;
+      // min-height: 43px;
     }
     .react-multiple-carousel__arrow::before {
-      font-size: 20px;
+      // font-size: 20px;
     }
   }
 }
@@ -53,18 +93,24 @@
   .slider {
     .react-multiple-carousel__arrow--right,
     .react-multiple-carousel__arrow--left {
-      min-width: 43px;
-      min-height: 43px;
+      min-width: 63px;
+      min-height: 63px;
     }
     .react-multiple-carousel__arrow::before {
-      font-size: 20px;
+      // font-size: 20px;
+    }    .before-after-slider__second-photo-container,
+    .before-after-slider__first-photo-container {
+      height: 285px;
     }
   }
 }
 
 // Medium Devices Responsive
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 993px) {
   .slider {
+    .react-multi-carousel-item {
+      padding-right: 20px;
+    }
     .react-multiple-carousel__arrow--right,
     .react-multiple-carousel__arrow--left {
       min-width: 53px;
@@ -73,11 +119,27 @@
     .react-multiple-carousel__arrow::before {
       font-size: 20px;
     }
+    .before-after-slider__second-photo-container,
+    .before-after-slider__first-photo-container {
+      height: 220px;
+    }
   }
 }
 
-@media (min-width: 992px) and (max-width: 1199px) {
+@media (min-width: 993px) and (max-width: 1200px) {
   .slider {
+    .before-after-slider__second-photo-container,
+    .before-after-slider__first-photo-container {
+      height: 270px;
+    }
+  }
+}
+@media (min-width: 1200px) and (max-width: 1390px) {
+  .slider {
+    .before-after-slider__second-photo-container,
+    .before-after-slider__first-photo-container {
+      height: 340px;
+    }
   }
   .react-multiple-carousel__arrow::before {
     font-size: 20px;
