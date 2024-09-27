@@ -1,6 +1,6 @@
 import React from 'react';
 import './Navbar.scss';
-import logo from './../../assets/logo.png';
+import logo from './../../assets/logo2.svg';
 import {Link} from 'react-router-dom';
 
 const Navbar = () => {
@@ -19,10 +19,6 @@ const Navbar = () => {
             path: '/singleservice',
         },
         {
-            name: 'Блог',
-            path: '/blogs',
-        },
-        {
             name: 'Контакты',
             path: '/contact',
         }
@@ -36,6 +32,7 @@ const Navbar = () => {
                         {/* Logo */}
                         <Link className="navbar-brand" to="/">
                             <img src={logo} alt="logo" />
+                            <h5 className='brand-text'>Dr. Bochenkov</h5>
                         </Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

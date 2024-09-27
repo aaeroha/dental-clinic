@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/footer_logo.png";
+import logo from "../../assets/logo2.svg";
 import "./Footer.scss";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -22,33 +22,30 @@ const Footer = () => {
       link: "/",
     },
     {
-      name: "Blogs",
-      link: "/",
-    },
-    {
       name: "FAQs",
       link: "/",
     },
   ];
 
   const footerContacts = [
-    { id: 1, title: "Phone Number", info: "+088 123 654 987", icon: call },
-    { id: 2, title: "Open Hour", info: "09:00 AM - 18:00 PM", icon: time },
+    { id: 1, title: "Номер телефона", info: "8(915)202-38-88", icon: call },
+    { id: 2, title: "Режим работы", info: "09:00 - 18:00", icon: time },
     {
       id: 3,
-      title: "Clinic Address",
-      info: "35 West Dental Street California 1004",
+      title: "Адрес",
+      info: "Москва, улица Обручева, 34/63с1, офис №21",
       icon: location,
     },
   ];
 
   return (
-    <footer className="pt-100 pb-70">
+    <footer className="pt-30 pb-30">
       <div className="container">
         <div className="row">
           <div className="col-lg-6 col-md-5">
             <div className="footer-logo">
               <img src={logo} alt="logo" />
+              <h5 className="brand-text">Dr. Bochenkov</h5>
             </div>
             <p>
               Dental Care Seattle is a top-rated local practice for cosmetic,
@@ -77,7 +74,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="col-lg-2 col-md-2">
-            <div className="footer-link">
+            {/* <div className="footer-link">
               <p>Quick Links</p>
               <ul>
                 {footerMenu.map((singleMenu) => (
@@ -86,11 +83,11 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
           </div>
           <div className="col-lg-4 col-md-5">
             <div className="footer-contact">
-              <p>Contact & Information</p>
+              <p>Контактная информация</p>
 
               {footerContacts.map((footerContact) => {
                 return (
@@ -111,17 +108,7 @@ const Footer = () => {
 
         <div className="copyright-area">
           <div className="copy-text">
-            <p>&copy; Dentalist. All Right Reserved</p>
-          </div>
-          <div className="copy-links">
-            <ul>
-              <li>
-                <Link to="/">Terms of Use</Link>
-              </li>
-              <li>
-                <Link to="/">Privacy Policy</Link>
-              </li>
-            </ul>
+            <p>&copy; Dr. Bochenkov Все права защищены</p>
           </div>
         </div>
       </div>
