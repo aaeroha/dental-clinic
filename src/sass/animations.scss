@@ -127,3 +127,17 @@
     transform: rotate(0.625deg);
   }
 }
+
+@keyframes phone {
+  0% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes ShineAnim{
+  0%{left: -100%}
+  10%{left: 100%}
+  100%{left: 100%}
+}

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Banner.scss";
-import { Link } from "react-router-dom";
 import icon from "../../assets/banner/icons/Calling.png";
 import bannerImg from "../../assets/banner/1.png";
 import bannerPattern from "../../assets/banner/pattern_02.png";
@@ -8,10 +7,20 @@ import shapeOne from "../../assets/banner/vector_01.png";
 import shapeTwo from "../../assets/banner/vector_02.png";
 import shapeThree from "../../assets/banner/vector_03.png";
 import shapeFour from "../../assets/banner/pattern.png";
+import ReactWhatsapp from "react-whatsapp";
 
 const Banner = () => {
   return (
-    <section className="section-bg section-common banner-section">
+    <section id="header" className="section-bg section-common banner-section">
+      <div className="hiden">
+        <h1>Боченков Роман Викторович</h1>
+        <h2>Стоматолог-хирург</h2>
+        <h2>стоматолог</h2>
+        <h2>стоматолог-имплантолог</h2>
+        <h2>стоматолог-ортопед</h2>
+        <h2>имплантация</h2>
+        <h2>одномоментная имплантация</h2>
+      </div>
       <div className="d-table">
         <div className="d-table-cell">
           <div className="container">
@@ -36,9 +45,13 @@ const Banner = () => {
                   </p>
 
                   <div className="banner-bottom">
-                    <div className="theme-btn">
-                      <Link to="/contact">Запишитесь на консультацию</Link>
-                    </div>
+                    <ReactWhatsapp
+                      className="theme-btn"
+                      number="+79152023888"
+                      message="Хочу записатьcя на прием!"
+                    >
+                      Запишитесь на консультацию
+                    </ReactWhatsapp>
                     <a href="tel:89152023888" className="none-decor">
                       <div className="banner-call">
                         <div className="icon">

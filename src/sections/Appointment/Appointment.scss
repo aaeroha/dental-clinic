@@ -16,19 +16,27 @@
       width: 100%;
       height: 100%;
     }
-
+    .circle1 {
+      animation-delay: 0s;
+    }
+    .circle2 {
+      animation-delay: 1s;
+    }
     .location-name {
       position: absolute;
-      bottom: 20px;
-      left: 0;
-      right: 0;
+      bottom: 30px;
+      left: 0%;
+      right: 0%;
       background: $color-white;
       padding: 10px;
       margin: auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0.7;
+      opacity: 0.8;
+      z-index: 2;
+      animation: phone 2s cubic-bezier(0.12, 0.7, 0.74, 0.71) infinite
+        alternate-reverse;
 
       svg {
         background: $color-blue;

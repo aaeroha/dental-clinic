@@ -28,7 +28,9 @@
   margin-top: 100px;
   position: relative;
   z-index: 1;
-
+  .hiden {
+    display: none;
+  }
   .banner-pattern {
     position: absolute;
     top: 10%;

@@ -5,18 +5,14 @@ import Slider from "../../components/Slider/index";
 
 const Expert = () => {
   return (
-    <section
+    <section id="portfolio"
       className="expert-section"
       data-aos="fade-up"
       data-aos-duration="2000"
     >
       <div className="container">
         <div className="row align-items-center">
-          <SectionTitle
-            subTitle="КАКОЙ_ТО ТЕКСТ"
-            title="КАКОЙ_ТО ТЕКСТ"
-            description="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts"
-          />
+          <SectionTitle subTitle="Портфолио" title="Примеры работ" />
           <Slider />
 
           <div className="col-lg-6 col-md-6"></div>

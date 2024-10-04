@@ -1,9 +1,7 @@
 import React from "react";
 import "./Testimonial.scss";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import imgOne from "../../assets/testimonial/1.png";
-import imgTwo from "../../assets/testimonial/2.png";
-import imgThree from "../../assets/testimonial/3.png";
+import img from "../../assets/testimonial/user.png";
 import TestimoniCard from "../../components/TestimoniCard/TestimoniCard";
 import { AiFillStar } from "react-icons/ai";
 import Slider from "react-slick";
@@ -12,10 +10,10 @@ const Testimonial = () => {
   const testimonails = [
     {
       id: 1,
-      img: imgOne,
-      name: "Robert Fox",
+      img: "https://avatars.mds.yandex.net/get-yapic/36777/KAEugzhz3z9vswDHg7p66SpiOL4-1/islands-68",
+      name: "Ольга Митькевич",
       description:
-        "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts",
+        "Очень понравился хирург Боченков Роман Викторович. Справился грамотно с удалением сложного зуба мудрости. Был заботлив, вежлив и прислушивался к состоянию и просьбы пациента. Обслуживание отличное. Прошло 7 часов - никакой боли и отека. Надеюсь дальше будет также все хорошо.",
       ratings: [
         <AiFillStar />,
         <AiFillStar />,
@@ -26,10 +24,10 @@ const Testimonial = () => {
     },
     {
       id: 2,
-      img: imgTwo,
-      name: "Albert Flores",
+      img: img,
+      name: "Анастасия Лазарева",
       description:
-        "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts",
+        "Ходим практически всей семьей к Боченкову Роману Викторовичу! Роман Викторович провел удаление сложных удалений детям и устанавливал винты для ортодонтии, золотые руки у него и очень деликатно и аккуратно все делает, дети его обожают, говорят совсем не больно! Полный восторг и максимальное доверие доктору❤️Ван лав ❤️",
       ratings: [
         <AiFillStar />,
         <AiFillStar />,
@@ -40,10 +38,10 @@ const Testimonial = () => {
     },
     {
       id: 3,
-      img: imgThree,
-      name: "Bessie Cooper",
+      img: img,
+      name: "Виктория Брикез",
       description:
-        "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts",
+        "Боченков Роман Викторович, отличный специалист, рекомендую его, если нужно протезирование. Все объяснит, предложит варианты, даст рекомендации. Качество работы всегда на высоте.",
       ratings: [
         <AiFillStar />,
         <AiFillStar />,
@@ -54,10 +52,68 @@ const Testimonial = () => {
     },
     {
       id: 4,
-      img: imgOne,
-      name: "Bessie Cooper",
+      img: img,
+      name: "Наталья Ф.",
       description:
-        "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts",
+        "Обратилась к Боченкову Роману Викторовичу по рекомендации, т. к. другой доктор не смог справиться с обычной вклейкой винира. Доктор Боченков подготовил винир, вычистил его, подготовил мой зуб и десну вокруг, и только потом вклеил винир на место. Работа идеальная! Почти месяц прошёл и всё держится прекрасно! Всех своих знакомых теперь отправляю только туда!",
+      ratings: [
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+      ],
+    },
+    {
+      id: 5,
+      img: img,
+      name: "Ольга Лудова",
+      description: `Удаляла зубы и ставила импланты у Доктора Боченкова Романа Викторовича. (Слово «Доктор» с большой буквы написан умышленно, он знает свое дело, специалист своего дела). СПАСИБО ему БОЛЬШОЕ, а также персоналу клиники-вежливые, отзывчивые. Я радуюсь каждый день тому , что у меня зубы выросли новые. Спасибо еще раз!`,
+      ratings: [
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+      ],
+    },
+    {
+      id: 6,
+      img: img,
+      name: "Сергей Ж",
+      description: `Делюсь самыми лучшими впечатлениями от посещения клиники. Самые лучшие впечатления от работы врача Боченкова.
+В столь сложное время встретить профессионалов, людей разбирающихся в своей работе.. Это счастье.
+Очень доволен и ответственно рекомендую.
+Еще раз слова благодарности !`,
+      ratings: [
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+      ],
+    },
+    {
+      id: 7,
+      img: img,
+      name: "Валерия Мамонова",
+      description: `Лечусь у Боченкова Романа Викторовича. Довольна на все 100! Очень тактичный, аккуратный, компетентный. Профессионал своего дела. Удаление зуба и установка имплантата произведены оперативно и очень комфортно. Помогала ему в этом прекрасная девушка, так же оставила только приятные впечатления!
+Вообще весь персонал заслуживает уважения, все внимательны и доброжелательны к пациентам.
+Хочется сказать про цены. Самые адекватные по району. И это при том, что сама работа врача гораздо лучше, чем в клиниках на районе. Проверено!
+Однозначно буду продолжать лечение и рекомендовать соседям и знакомым.`,
+      ratings: [
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+        <AiFillStar />,
+      ],
+    },
+    {
+      id: 8,
+      img: img,
+      name: "Андрей Шишкин",
+      description: "Постоянный посетитель данного заведения. Замечательно место!! Отношение к клиентам на 5+. Особенная благодарность врачу Боченкову Роману Викторовичу. Сейчас редко встретишь культурного, внимательного к деталям и ВЫСОКОКВАЛИФИЦИРОВАННОГО специалиста своего дела, если нужно импланты только к нему, без вариантов. Спасибо всем за отличную работу.",
       ratings: [
         <AiFillStar />,
         <AiFillStar />,
@@ -73,13 +129,15 @@ const Testimonial = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 2,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
@@ -102,6 +160,7 @@ const Testimonial = () => {
 
   return (
     <section
+      id="testimonail"
       className="testimonail-section section-bg section-common pt-100 pb-70"
       data-aos="fade-up"
       data-aos-duration="2000"
@@ -109,15 +168,14 @@ const Testimonial = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-6">
-            <SectionTitle
-              subTitle="КАКОЙ_ТО ТЕКСТ"
-              title="Отзывы моих пациентов"
-            />
+            <SectionTitle subTitle="" title="Отзывы" />
           </div>
           <div className="col-lg-6">
-            <p className="pt-5">
-              Lorem ipsum is placeholder text commonly used in the graphic,
-              print, and publishing industries for previewing layouts{" "}
+            <p className="pt-5 light-text">
+              Отзывы моих пациентов помогают мне постоянно совершенствоваться и
+              предоставлять еще более высокое качество медицинских услуг.
+              Оставьте свой отзыв и, тем самым, Вы поможете другим людям принять
+              правильное решение.
             </p>
           </div>
         </div>

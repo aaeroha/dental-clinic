@@ -47,6 +47,13 @@
     border: 1px solid rgb(0 0 0 / 50%);
     margin-right: 15px;
   }
+  .react-multi-carousel-dot button:hover {
+    width: 32px;
+    height: 32px;
+    background: #583fbc;
+    box-shadow: inset 0px 0px 6px 5px rgb(0 0 0 / 56%);
+    transition: all 0.6s ease-in-out;
+  }
   .react-multi-carousel-dot--active button {
     width: 32px;
     height: 32px;

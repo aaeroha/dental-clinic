@@ -2,31 +2,11 @@ import React from "react";
 import logo from "../../assets/logo2.svg";
 import "./Footer.scss";
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import call from "../../assets/footer/calling.png";
 import time from "../../assets/footer/time.png";
 import location from "../../assets/footer/location.png";
 
 const Footer = () => {
-  const footerMenu = [
-    {
-      name: "About Us",
-      link: "/",
-    },
-    {
-      name: "Dental Services",
-      link: "/",
-    },
-    {
-      name: "Dentist",
-      link: "/",
-    },
-    {
-      name: "FAQs",
-      link: "/",
-    },
-  ];
-
   const footerContacts = [
     { id: 1, title: "Номер телефона", info: "8(915)202-38-88", icon: call },
     { id: 2, title: "Режим работы", info: "09:00 - 18:00", icon: time },
@@ -39,7 +19,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="pt-30 pb-30">
+    <footer id="footer" className="pt-30 pb-30">
       <div className="container">
         <div className="row">
           <div className="col-lg-6 col-md-5">
