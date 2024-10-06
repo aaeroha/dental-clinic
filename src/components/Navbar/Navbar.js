@@ -6,19 +6,19 @@ import ReactWhatsapp from "react-whatsapp";
 
 const Navbar = () => {
   const navbarItems = [
-    {
-      name: "Главная",
-      path: "header",
-      function: () => {
-        const footerElement = document.getElementById("header");
-        if (footerElement) {
-          footerElement.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest",
-          });
-        }
-      },
-    },
+    // {
+    //   name: "Главная",
+    //   path: "header",
+    //   function: () => {
+    //     const footerElement = document.getElementById("header");
+    //     if (footerElement) {
+    //       footerElement.scrollIntoView({
+    //         behavior: "auto",
+    //         block: "start",
+    //       });
+    //     }
+    //   },
+    // },
     {
       name: "Отзывы",
       path: "testimonail",
@@ -37,6 +37,19 @@ const Navbar = () => {
       path: "portfolio",
       function: () => {
         const footerElement = document.getElementById("portfolio");
+        if (footerElement) {
+          footerElement.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+          });
+        }
+      },
+    },
+    {
+      name: "Сертификаты",
+      path: "sertificates",
+      function: () => {
+        const footerElement = document.getElementById("sertificates");
         if (footerElement) {
           footerElement.scrollIntoView({
             behavior: "smooth",

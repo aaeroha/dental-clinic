@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  .section-title{
+    margin-bottom: 0px;
+  }
   .service-title-text {
     padding-top: 50px;
     max-width: 600px;

@@ -17,8 +17,8 @@ const Home = () => {
     <>
       <Navbar />
       <Banner />
-      <Services />
       <Emergency />
+      <Services />
       <Suspense fallback={<div>Loading...</div>}>
         <LazyExpert />
       </Suspense>

@@ -39,10 +39,14 @@ function Slider() {
           <div key={index} className="slider-item">
             <ReactBeforeSliderComponent
               firstImage={{
-                imageUrl: require(`../../assets/banner/work/before${++index}.jpg`),
+                imageUrl: require(`../../assets/banner/work/before${
+                  index + 1
+                }.jpg`),
               }}
               secondImage={{
-                imageUrl: require(`../../assets/banner/work/after${++index}.jpg`),
+                imageUrl: require(`../../assets/banner/work/after${
+                  index + 1
+                }.jpg`),
               }}
               delimiterColor="#583FBC"
               currentPercentPosition={50}

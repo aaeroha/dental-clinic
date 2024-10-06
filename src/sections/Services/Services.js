@@ -47,28 +47,14 @@ const Services = () => {
     >
       <div className="container">
         <div className="row">
-          <div className="col-lg-6 col-sm-6">
-            <SectionTitle title="КАКОЙ_ТО ТЕКСТ" subTitle="КАКОЙ_ТО ТЕКСТ" />
-          </div>
-          <div className="col-lg-6 col-sm-6">
-            <p className="service-title-text">
-              Lorem ipsum is placeholder text commonly used in the graphic,
-              print, and publishing industries for previewing layouts and visual
-              mockups.
-            </p>
-          </div>
+          <SectionTitle title="Что Вас беспокоит?" subTitle="Консультация" />
         </div>
-
         <div className="row">
           <Slider {...settings} className="testimoni-slider">
             {ServicesData.map((item) => (
-              // <TestimoniCard testimonail={testimonail} key={testimonail.id} />
               <Service serviceList={item} key={item.id} />
             ))}
           </Slider>
-          {/* {ServicesData.map((singleService) => (
-            <Service serviceList={singleService} key={singleService.id} />
-          ))} */}
         </div>
       </div>
       <ReactWhatsapp

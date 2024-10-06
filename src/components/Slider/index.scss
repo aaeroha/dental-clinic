@@ -85,14 +85,6 @@
 // Mobile Responsive
 @media (max-width: 575px) {
   .slider {
-    .react-multiple-carousel__arrow--right,
-    .react-multiple-carousel__arrow--left {
-      // min-width: 43px;
-      // min-height: 43px;
-    }
-    .react-multiple-carousel__arrow::before {
-      // font-size: 20px;
-    }
     .before-after-slider__second-photo-container,
     .before-after-slider__first-photo-container {
       height: 225px;
