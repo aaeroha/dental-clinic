@@ -1,14 +1,12 @@
 @import "../../sass/colors.scss";
 
 @keyframes scanSweep {
-  0% {
-    top: 0%;
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    top: calc(100% - 3px);
-  }
-  100% {
-    top: 0%;
+    transform: translate3d(0, 445px, 0);
   }
 }
 
@@ -121,6 +119,7 @@
       top: 0;
       height: 3px;
       z-index: 5;
+      will-change: transform;
       background: linear-gradient(
         90deg,
         transparent 0%,

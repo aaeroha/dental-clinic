@@ -2,22 +2,19 @@
 
 @keyframes gradCapToss {
   0% {
-    top: 96%;
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(0.85);
+    transform: translate3d(0, 30px, 0) rotate(0deg) scale(0.85);
     opacity: 0;
   }
   12% {
     opacity: 0.28;
   }
   44% {
-    top: var(--cap-peak, 8%);
-    transform: translate3d(calc(var(--cap-drift, 20px) * 0.55), 0, 0)
+    transform: translate3d(calc(var(--cap-drift, 20px) * 0.55), var(--cap-height, -460px), 0)
       rotate(calc(var(--cap-spin, 220deg) * 0.5)) scale(1.08);
     opacity: 0.34;
   }
   54% {
-    top: calc(var(--cap-peak, 8%) - 1%);
-    transform: translate3d(calc(var(--cap-drift, 20px) * 0.65), 0, 0)
+    transform: translate3d(calc(var(--cap-drift, 20px) * 0.65), calc(var(--cap-height, -460px) - 12px), 0)
       rotate(calc(var(--cap-spin, 220deg) * 0.62)) scale(1.1);
     opacity: 0.3;
   }
@@ -25,8 +22,7 @@
     opacity: 0.22;
   }
   100% {
-    top: 98%;
-    transform: translate3d(var(--cap-drift, 20px), 0, 0) rotate(var(--cap-spin, 220deg)) scale(0.9);
+    transform: translate3d(var(--cap-drift, 20px), 40px, 0) rotate(var(--cap-spin, 220deg)) scale(0.9);
     opacity: 0;
   }
 }
@@ -47,13 +43,15 @@
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
+    contain: strict;
   }
 
   .grad-cap-particle {
     position: absolute;
-    top: 96%;
+    bottom: -20px;
     color: var(--accent);
     opacity: 0;
+    will-change: transform, opacity;
     filter: drop-shadow(0 6px 14px var(--accent-glow));
     animation: gradCapToss 4.8s ease-in-out infinite;
   }

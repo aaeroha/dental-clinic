@@ -39,6 +39,7 @@
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
+    contain: strict;
   }
 
   .smile-bg-item {

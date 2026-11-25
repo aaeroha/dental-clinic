@@ -15,14 +15,14 @@ import "swiper/css/autoplay";
 const TOTAL_CERTIFICATES = 10;
 
 const GRAD_CAPS = [
-  { left: "6%", delay: "0s", duration: "4.6s", size: 58, peak: "6%", drift: "-28px", spin: "-220deg" },
-  { left: "16%", delay: "-1.4s", duration: "5.2s", size: 32, peak: "14%", drift: "24px", spin: "260deg" },
-  { left: "28%", delay: "-2.8s", duration: "4.3s", size: 68, peak: "4%", drift: "-18px", spin: "190deg" },
-  { left: "41%", delay: "-0.7s", duration: "5.5s", size: 28, peak: "16%", drift: "30px", spin: "-280deg" },
-  { left: "54%", delay: "-3.6s", duration: "4.8s", size: 48, peak: "8%", drift: "-22px", spin: "240deg" },
-  { left: "67%", delay: "-2.1s", duration: "5.0s", size: 64, peak: "10%", drift: "20px", spin: "-200deg" },
-  { left: "79%", delay: "-4.1s", duration: "4.4s", size: 36, peak: "5%", drift: "-26px", spin: "300deg" },
-  { left: "90%", delay: "-1.0s", duration: "5.3s", size: 52, peak: "12%", drift: "16px", spin: "-250deg" },
+  { left: "6%", delay: "0s", duration: "4.6s", size: 58, height: "-480px", drift: "-28px", spin: "-220deg" },
+  { left: "16%", delay: "-1.4s", duration: "5.2s", size: 32, height: "-410px", drift: "24px", spin: "260deg" },
+  { left: "28%", delay: "-2.8s", duration: "4.3s", size: 68, height: "-510px", drift: "-18px", spin: "190deg" },
+  { left: "41%", delay: "-0.7s", duration: "5.5s", size: 28, height: "-390px", drift: "30px", spin: "-280deg" },
+  { left: "54%", delay: "-3.6s", duration: "4.8s", size: 48, height: "-470px", drift: "-22px", spin: "240deg" },
+  { left: "67%", delay: "-2.1s", duration: "5.0s", size: 64, height: "-440px", drift: "20px", spin: "-200deg" },
+  { left: "79%", delay: "-4.1s", duration: "4.4s", size: 36, height: "-495px", drift: "-26px", spin: "300deg" },
+  { left: "90%", delay: "-1.0s", duration: "5.3s", size: 52, height: "-420px", drift: "16px", spin: "-250deg" },
 ];
 
 const Sertificates = () => {
@@ -58,7 +58,7 @@ const Sertificates = () => {
               fontSize: `${cap.size}px`,
               animationDelay: cap.delay,
               animationDuration: cap.duration,
-              "--cap-peak": cap.peak,
+              "--cap-height": cap.height,
               "--cap-drift": cap.drift,
               "--cap-spin": cap.spin,
             }}

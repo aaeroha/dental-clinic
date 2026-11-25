@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Banner from "../sections/Banner/Banner";
 import DoctorAdvantages from "../sections/DoctorAdvantages/DoctorAdvantages";
@@ -6,18 +6,15 @@ import Emergency from "../sections/Emergency/Emergency";
 import Footer from "../sections/Footer/Footer";
 import Services from "../sections/Services/Services";
 import TreatmentSteps from "../sections/TreatmentSteps/TreatmentSteps";
+import Expert from "../sections/Expert/Expert";
+import Sertificates from "../sections/Sertificates/";
 import Testimonial from "../sections/Testimonial/Testimonial";
 import Faq from "../sections/Faq/Faq";
+import Appointment from "../sections/Appointment/Appointment";
 import { AiTwotoneWarning } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { getCookie, setCookie, initYandexMetrika } from "../utils/metrika";
 import ImplantScrollWidget from "../components/ImplantScrollWidget/ImplantScrollWidget";
-
-const LazyExpert = React.lazy(() => import("../sections/Expert/Expert"));
-const LazySertificates = React.lazy(() => import("../sections/Sertificates/"));
-const LazyAppointment = React.lazy(() =>
-  import("../sections/Appointment/Appointment")
-);
 
 const Home = () => {
   const [cookieStatus, setCookieStatus] = useState(() =>
@@ -53,17 +50,11 @@ const Home = () => {
         <Emergency />
         <Services />
         <TreatmentSteps />
-        <Suspense fallback={<div className="section-loader" aria-busy="true" />}>
-          <LazyExpert />
-        </Suspense>
-        <Suspense fallback={<div className="section-loader" aria-busy="true" />}>
-          <LazySertificates />
-        </Suspense>
+        <Expert />
+        <Sertificates />
         <Testimonial />
         <Faq />
-        <Suspense fallback={<div className="section-loader" aria-busy="true" />}>
-          <LazyAppointment />
-        </Suspense>
+        <Appointment />
       </main>
 
       {showCookieBanner && (

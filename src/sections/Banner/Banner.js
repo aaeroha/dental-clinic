@@ -258,6 +258,8 @@ const Banner = () => {
         className="banner-pattern wave"
         src={bannerPattern}
         alt=""
+        width="1392"
+        height="484"
         aria-hidden="true"
         decoding="async"
       />
