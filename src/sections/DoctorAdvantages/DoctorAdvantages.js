@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./DoctorAdvantages.scss";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import Reveal from "../../components/Reveal/Reveal";
+import { FiChevronsDown } from "react-icons/fi";
 
 const STATS = [
   { target: 17, suffix: "+", label: "лет клинической практики" },
@@ -185,6 +186,12 @@ function AnimatedNumber({ target, suffix }) {
 }
 
 const DoctorAdvantages = () => {
+  const [openIdx, setOpenIdx] = useState(-1);
+
+  const toggleCard = (idx) => {
+    setOpenIdx((prev) => (prev === idx ? -1 : idx));
+  };
+
   return (
     <section id="about" className="advantages-section pt-100">
       <div className="container">
@@ -210,20 +217,41 @@ const DoctorAdvantages = () => {
         </div>
 
         <div className="advantages-grid">
-          {ADVANTAGES.map((adv, idx) => (
-            <Reveal key={adv.title} delay={idx * 90} variant="fade-up">
-              <article className="advantage-card">
-                <div
-                  className={`advantage-icon ${adv.animClass}`}
-                  aria-hidden="true"
+          {ADVANTAGES.map((adv, idx) => {
+            const isOpen = openIdx === idx;
+            return (
+              <Reveal key={adv.title} delay={idx * 90} variant="fade-up">
+                <article
+                  className={`advantage-card ${isOpen ? "is-open" : ""}`}
                 >
-                  {adv.icon}
-                </div>
-                <h3>{adv.title}</h3>
-                <p>{adv.text}</p>
-              </article>
-            </Reveal>
-          ))}
+                  <button
+                    type="button"
+                    className="advantage-card-trigger"
+                    aria-expanded={isOpen}
+                    onClick={() => toggleCard(idx)}
+                  >
+                    <div className="advantage-card-head">
+                      <div
+                        className={`advantage-icon ${adv.animClass}`}
+                        aria-hidden="true"
+                      >
+                        {adv.icon}
+                      </div>
+                      <span className="adv-chevron" aria-hidden="true">
+                        <FiChevronsDown />
+                      </span>
+                    </div>
+                    <h3>{adv.title}</h3>
+                  </button>
+                  <div className="adv-desc-wrap">
+                    <div className="adv-desc-inner">
+                      <p>{adv.text}</p>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

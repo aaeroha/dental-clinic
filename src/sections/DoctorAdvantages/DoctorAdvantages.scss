@@ -126,7 +126,37 @@
     box-shadow: var(--shadow-sm);
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 
-    &:hover {
+    .advantage-card-trigger {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 0;
+      text-align: left;
+      cursor: default;
+    }
+
+    .advantage-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .adv-chevron {
+      display: none;
+    }
+
+    .adv-desc-wrap {
+      display: grid;
+      grid-template-rows: 1fr;
+    }
+
+    .adv-desc-inner {
+      overflow: hidden;
+    }
+
+    &:hover,
+    &.is-open {
       transform: translateY(-5px);
       border-color: var(--accent);
       box-shadow: var(--shadow-md);
@@ -199,11 +229,91 @@
   }
 }
 
+@keyframes chevronHint {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
 @media (max-width: 991px) {
   .advantages-section {
     .stats-grid,
     .advantages-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .advantages-grid {
+      align-items: start;
+
+      .reveal {
+        height: auto;
+      }
+    }
+
+    .advantage-card {
+      height: auto;
+      padding: 18px 16px;
+
+      &:hover {
+        transform: none;
+      }
+
+      .advantage-card-trigger {
+        cursor: pointer;
+      }
+
+      .advantage-icon {
+        margin-bottom: 12px;
+      }
+
+      .adv-chevron {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 18px;
+        flex-shrink: 0;
+        transition: transform 0.3s ease, background-color 0.25s ease, color 0.25s ease;
+
+        svg {
+          animation: chevronHint 1.8s ease-in-out infinite;
+        }
+      }
+
+      .adv-desc-wrap {
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .adv-desc-inner p {
+        padding-top: 10px;
+      }
+
+      &.is-open {
+        transform: none;
+
+        .adv-chevron {
+          background: var(--accent);
+          color: #ffffff;
+          transform: rotate(180deg);
+
+          svg {
+            animation: none;
+          }
+        }
+
+        .adv-desc-wrap {
+          grid-template-rows: 1fr;
+        }
+      }
     }
   }
 }
