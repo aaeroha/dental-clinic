@@ -38,7 +38,7 @@ const BG_QUESTIONS = [
 ];
 
 const Faq = () => {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(-1);
 
   const toggleItem = (idx) => {
     const next = openIndex === idx ? -1 : idx;

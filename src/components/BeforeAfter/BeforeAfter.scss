@@ -88,6 +88,10 @@
     color: #ffffff;
     transform: scale(1.06);
   }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 }
 
 .ba-card--large {

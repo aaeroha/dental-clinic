@@ -38,15 +38,15 @@ const STEPS = [
 function StepScene({ activeStep }) {
   return (
     <div className="scrolly-stage">
-      <div className="scrolly-stage-header">
-        <span className="stage-pill">Этап {STEPS[activeStep].num}</span>
-        <span className="stage-badge">{STEPS[activeStep].badge}</span>
-      </div>
-
       <div className="scrolly-visuals">
+        <div className="scrolly-stage-header">
+          <span className="stage-pill">Этап {STEPS[activeStep].num}</span>
+          <span className="stage-badge">{STEPS[activeStep].badge}</span>
+        </div>
+
         {/* Scene 0: 3D CBCT Scan */}
         <div className={`scrolly-scene ${activeStep === 0 ? "is-active" : ""}`}>
-          <svg viewBox="0 0 360 280" className="scene-svg" aria-hidden="true">
+          <svg viewBox="30 22 300 225" className="scene-svg" aria-hidden="true">
             <defs>
               <linearGradient id="cbctGrad" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stopColor="#167ffc" />
@@ -87,7 +87,7 @@ function StepScene({ activeStep }) {
 
         {/* Scene 1: 3D Digital Plan */}
         <div className={`scrolly-scene ${activeStep === 1 ? "is-active" : ""}`}>
-          <svg viewBox="0 0 360 280" className="scene-svg" aria-hidden="true">
+          <svg viewBox="35 20 290 225" className="scene-svg" aria-hidden="true">
             <defs>
               <linearGradient id="planGrad" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stopColor="#167ffc" />
@@ -116,7 +116,7 @@ function StepScene({ activeStep }) {
 
         {/* Scene 2: Implant Screwing In (logo-inspired) */}
         <div className={`scrolly-scene ${activeStep === 2 ? "is-active" : ""}`}>
-          <svg viewBox="0 0 360 280" className="scene-svg" aria-hidden="true">
+          <svg viewBox="35 22 290 235" className="scene-svg" aria-hidden="true">
             <defs>
               <linearGradient id="impGrad" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stopColor="#167ffc" />
@@ -155,7 +155,7 @@ function StepScene({ activeStep }) {
 
         {/* Scene 3: Crown Fixation & Guarantee */}
         <div className={`scrolly-scene ${activeStep === 3 ? "is-active" : ""}`}>
-          <svg viewBox="0 0 360 280" className="scene-svg" aria-hidden="true">
+          <svg viewBox="45 25 270 225" className="scene-svg" aria-hidden="true">
             <defs>
               <linearGradient id="crownGrad" x1="0" y1="0" x2="1" y2="1">
                 <stop offset="0%" stopColor="#ffffff" />
@@ -196,15 +196,15 @@ function StepScene({ activeStep }) {
             <span>Официальная гарантия и контроль прикуса</span>
           </div>
         </div>
-      </div>
 
-      <div className="scrolly-progress">
-        {STEPS.map((s, idx) => (
-          <span
-            key={s.num}
-            className={`scrolly-dot ${activeStep === idx ? "is-active" : ""}`}
-          />
-        ))}
+        <div className="scrolly-progress">
+          {STEPS.map((s, idx) => (
+            <span
+              key={s.num}
+              className={`scrolly-dot ${activeStep === idx ? "is-active" : ""}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -69,46 +69,57 @@
   .scrolly-stage {
     background: var(--bg-hero);
     border-radius: 28px;
-    padding: 26px 24px;
+    padding: 0;
     height: 430px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    overflow: hidden;
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(255, 255, 255, 0.16);
     color: #ffffff;
   }
 
   .scrolly-stage-header {
+    position: absolute;
+    top: 16px;
+    left: 18px;
+    right: 18px;
+    z-index: 6;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-    margin-bottom: 14px;
+    pointer-events: none;
 
     .stage-pill {
       padding: 6px 14px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(15, 18, 42, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       font-size: 12.5px;
       font-weight: 700;
     }
 
     .stage-badge {
-      font-size: 12.5px;
-      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 18, 42, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(94, 242, 184, 0.3);
+      font-size: 12px;
+      font-weight: 700;
       color: #5ef2b8;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
     }
   }
 
   .scrolly-visuals {
     position: relative;
-    height: 310px;
-    border-radius: 20px;
+    width: 100%;
+    height: 100%;
     background: rgba(11, 14, 34, 0.34);
-    border: 1px solid rgba(255, 255, 255, 0.14);
     overflow: hidden;
   }
 
@@ -119,7 +130,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 12px;
+    padding: 46px 14px 36px;
     opacity: 0;
     transform: scale(0.95) translateY(12px);
     transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
@@ -133,7 +144,8 @@
 
     .scene-svg {
       width: 100%;
-      max-height: 250px;
+      height: 100%;
+      max-height: 100%;
     }
 
     .cbct-beam {
@@ -173,10 +185,15 @@
   }
 
   .scrolly-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 14px;
+    z-index: 6;
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 16px;
+    pointer-events: none;
 
     .scrolly-dot {
       width: 10px;
@@ -311,11 +328,15 @@
     }
 
     .scrolly-stage {
-      height: auto;
+      height: 280px;
     }
 
     .scrolly-visuals {
-      height: 210px;
+      height: 100%;
+    }
+
+    .scrolly-scene {
+      padding: 44px 10px 32px;
     }
 
     .scrolly-step-card {
