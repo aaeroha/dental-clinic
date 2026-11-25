@@ -32,13 +32,13 @@ const ImplantScrollWidget = () => {
     };
   }, []);
 
-  // Phase 1 (0 -> 0.68): Implant (shunt) starts high above gum (y=-26) and screws down 30px into bone (y=+4)
+  // Phase 1 (0 -> 0.68): Implant (shunt + abutment pin) starts high above gum and screws down into bone
   const screwPhase = Math.min(1, progress / 0.68);
-  const screwY = -26 + screwPhase * 30;
+  const screwY = -24 + screwPhase * 28;
   const screwTilt =
     screwPhase < 1 ? Math.sin(screwPhase * Math.PI * 8) * 7 : 0;
 
-  // Phase 2 (0.55 -> 1.0): Crown descends 27.5px onto the seated implant (y=56) with zero gap
+  // Phase 2 (0.55 -> 1.0): Larger crown descends onto the abutment pin and seats flush on the implant
   const crownPhase = Math.max(0, Math.min(1, (progress - 0.55) / 0.42));
   const crownY = -22 + crownPhase * 27.5;
 
@@ -51,7 +51,7 @@ const ImplantScrollWidget = () => {
       title={`Прогресс: ${Math.round(progress * 100)}% — Наверх`}
     >
       <svg
-        viewBox="0 0 64 102"
+        viewBox="0 0 64 104"
         className="implant-widget-svg"
         aria-hidden="true"
       >
@@ -61,7 +61,7 @@ const ImplantScrollWidget = () => {
             x1="14"
             y1="8"
             x2="50"
-            y2="92"
+            y2="94"
             gradientUnits="userSpaceOnUse"
           >
             <stop offset="0%" stopColor="#167ffc" />
@@ -71,7 +71,7 @@ const ImplantScrollWidget = () => {
 
         {/* Gum / bone support line */}
         <path
-          d="M9,60 Q32,53 55,60"
+          d="M9,62 Q32,55 55,62"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.4"
@@ -79,15 +79,24 @@ const ImplantScrollWidget = () => {
           strokeLinecap="round"
         />
 
-        {/* Threaded implant body (shunt) starting higher above the gum and screwing down */}
+        {/* Threaded implant body (shunt) + abutment pin ("штырёк") */}
         <g
           style={{
             transform: `translateY(${screwY.toFixed(1)}px) rotate(${screwTilt.toFixed(1)}deg)`,
-            transformOrigin: "32px 68px",
+            transformOrigin: "32px 70px",
           }}
         >
+          {/* Abutment pin on top of the shunt */}
+          <rect
+            x="27"
+            y="43"
+            width="10"
+            height="12"
+            rx="2.5"
+            fill="#5ef2b8"
+          />
           <path
-            d="M23,52 L41,52 L37,84 Q32,90 27,84 Z"
+            d="M23,54 L41,54 L37,86 Q32,92 27,86 Z"
             fill="url(#widgetImpGrad)"
           />
           <g
@@ -96,14 +105,14 @@ const ImplantScrollWidget = () => {
             strokeLinecap="round"
             opacity="0.95"
           >
-            <line x1="22" y1="60" x2="42" y2="58" />
-            <line x1="23" y1="67" x2="41" y2="65" />
-            <line x1="24" y1="74" x2="40" y2="72" />
-            <line x1="26" y1="81" x2="38" y2="79" />
+            <line x1="22" y1="62" x2="42" y2="60" />
+            <line x1="23" y1="69" x2="41" y2="67" />
+            <line x1="24" y1="76" x2="40" y2="74" />
+            <line x1="26" y1="83" x2="38" y2="81" />
           </g>
         </g>
 
-        {/* Crown silhouette descending onto the implant */}
+        {/* Larger crown silhouette descending over the abutment pin onto the implant */}
         <g
           style={{
             transform: `translateY(${crownY.toFixed(1)}px)`,
@@ -111,10 +120,10 @@ const ImplantScrollWidget = () => {
           }}
         >
           <path
-            d="M20,27 C16,27 14,35 17,43 C19,48 23,51 32,51 C41,51 45,48 47,43 C50,35 48,27 44,27 C40,27 36,31 32,31 C28,31 24,27 20,27 Z"
+            d="M17,22 C12,22 10,33 14,44 C16.5,50.5 21.5,53 32,53 C42.5,53 47.5,50.5 50,44 C54,33 52,22 47,22 C41.5,22 37,27 32,27 C27,27 22.5,22 17,22 Z"
             fill="url(#widgetImpGrad)"
             stroke="#ffffff"
-            strokeWidth="1.7"
+            strokeWidth="1.8"
           />
         </g>
       </svg>
