@@ -155,8 +155,7 @@
       overflow: hidden;
     }
 
-    &:hover,
-    &.is-open {
+    &:hover {
       transform: translateY(-5px);
       border-color: var(--accent);
       box-shadow: var(--shadow-md);
@@ -299,6 +298,40 @@
 
       &.is-open {
         transform: none;
+        border-color: var(--accent);
+        box-shadow: var(--shadow-md);
+
+        .adv-icon--user {
+          background: rgba(58, 134, 255, 0.16);
+          box-shadow: 0 8px 20px rgba(58, 134, 255, 0.24);
+          svg {
+            animation: userNod 0.9s ease-in-out infinite;
+          }
+        }
+
+        .adv-icon--cpu {
+          background: rgba(94, 242, 184, 0.16);
+          box-shadow: 0 8px 20px rgba(72, 191, 227, 0.25);
+          svg {
+            animation: cpuPulse 1.6s ease-in-out infinite;
+          }
+        }
+
+        .adv-icon--heart {
+          background: rgba(255, 77, 109, 0.16);
+          box-shadow: 0 8px 20px rgba(233, 69, 96, 0.28);
+          svg {
+            animation: heartBeat 1.15s ease-in-out infinite;
+          }
+        }
+
+        .adv-icon--award {
+          background: rgba(244, 162, 97, 0.18);
+          box-shadow: 0 8px 20px rgba(244, 162, 97, 0.28);
+          svg {
+            animation: awardSwing 1.1s ease-in-out infinite;
+          }
+        }
 
         .adv-chevron {
           background: var(--accent);

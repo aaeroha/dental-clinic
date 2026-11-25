@@ -189,6 +189,7 @@ const DoctorAdvantages = () => {
   const [openIdx, setOpenIdx] = useState(-1);
 
   const toggleCard = (idx) => {
+    if (typeof window !== "undefined" && window.innerWidth > 991) return;
     setOpenIdx((prev) => (prev === idx ? -1 : idx));
   };
 
