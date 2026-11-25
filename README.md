@@ -1,25 +1,35 @@
+# Dr. Bochenkov — Стоматолог-хирург, имплантолог, ортопед
 
-# Dentalist - Dental Clinic React Website
+Современный адаптивный сайт врача-стоматолога **Боченкова Романа Викторовича** (Москва, м. Калужская, ул. Обручева, 34/63с1).
 
-**Dentalist** is a Modern Responsive Website for Dental Clinic. It is built
-with ReactJS, Bootstrap, and Sass. Dental clinic can use
-this template to bring their business online or increase business visibility.
+## Предварительный просмотр (Live Preview)
 
-## Live View
-[Dentalist](https://dentalist.netlify.app/)
+- **GitHub Pages (Preview):** [https://aaeroha.github.io/dental-clinic/](https://aaeroha.github.io/dental-clinic/)
+- **Основной домен:** [https://drbochenkov.ru/](https://drbochenkov.ru/)
 
-## Tech Stack
-React, Bootstrap, SASS, React Router, React Slick, React Icons and AOS
+## Стек и ключевые возможности
 
-**Hosting:** Netlify
+- **Frontend:** React 18, React Router 6, Bootstrap 5, Sass (CSS-переменные), Swiper
+- **Дизайн и UX:**
+  - Переключение **светлой и тёмной темы** (с сохранением выбора в `localStorage`)
+  - Интерактивный **Scrollytelling** в блоке «Как проходит лечение» с синхронизированной 3D-визуализацией
+  - Кастомная карусель **«До и После»** с перетаскиваемым ползунком и полноэкранным просмотром
+  - Галерея сертификатов с Lightbox-просмотром и анимированным фоном
+  - Единое окно выбора записи (**WhatsApp**, **Telegram**, **прямой звонок**)
+  - Оптимизированные адаптивные WebP-изображения отдельно для Desktop и Mobile
+- **SEO и аналитика:**
+  - Полная SEO-разметка для Google и Яндекса (`Schema.org` JSON-LD: `Dentist`, `Person`, `FAQPage`), `robots.txt`, `sitemap.xml`
+  - **Яндекс.Метрика** запускается строго после подтверждения согласия в cookie-баннере, с настроенными целями (`click_whatsapp`, `click_telegram`, `click_phone`, `view_portfolio_ba`, `open_certificate`, `faq_open` и др.)
 
-## Website Features
+## Локальный запуск
 
-- Fully Responsive
-- Built with React
-- Bootstrap 5
-- Speed Optimized
-- Smooth Animation
+```bash
+npm install
+npm start
+```
 
-## Source File - Figma 
-Design credit [Flowbase](https://www.figma.com/community/file/1148521097072918819).
+## Сборка для продакшена
+
+```bash
+npm run build
+```

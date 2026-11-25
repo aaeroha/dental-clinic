@@ -1,163 +1,103 @@
 @import "../../sass/colors.scss";
-.slider {
-  // height: 500px;
-  .react-multiple-carousel__arrow--right,
-  .react-multiple-carousel__arrow--left {
-    background: #583fbc;
-    min-width: 53px;
-    min-height: 53px;
-    border: solid 1px #ffffff96;
-    opacity: 0.8;
-  }
-  .before-after-slider__delimiter-icon,
-  .before-after-slider__delimiter {
-    box-shadow: 5px 5px 10px;
-  }
-  .react-multiple-carousel__arrow::before {
-    font-size: 30px;
-    font-weight: 900;
-  }
+
+.portfolio-slider {
+  position: relative;
+
   .swiper {
-    width: 100%;
-    height: 100%;
+    padding: 8px 6px 52px;
   }
 
-  .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--bg-glass);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-strong);
+    color: var(--accent);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
 
-    /* Center slide text vertically */
+    &::after {
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    &:hover {
+      background: var(--accent);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+  }
+
+  .swiper-pagination {
+    bottom: 6px;
+  }
+}
+
+.ba-modal {
+  max-width: 960px;
+  padding: 28px 24px 20px;
+
+  .ba-modal-body {
+    width: 100%;
     display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .ba-modal-stage {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ba-modal-nav {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-surface-alt);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-  }
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .react-multi-carousel-dot button {
-    opacity: 0.9;
-    background: #c0b0ff;
-    box-shadow: inset 0px 0px 2px 2px rgb(0 0 0 / 70%);
-    width: 25px;
-    height: 25px;
-    border: 1px solid rgb(0 0 0 / 50%);
-    margin-right: 15px;
-  }
-  .react-multi-carousel-dot button:hover {
-    width: 32px;
-    height: 32px;
-    background: #583fbc;
-    box-shadow: inset 0px 0px 6px 5px rgb(0 0 0 / 56%);
-    transition: all 0.6s ease-in-out;
-  }
-  .react-multi-carousel-dot--active button {
-    width: 32px;
-    height: 32px;
-    background: #583fbc;
-    box-shadow: inset 0px 0px 6px 5px rgb(0 0 0 / 56%);
-  }
-  .react-multi-carousel-dot-list {
-    align-items: center;
-  }
-  .before-after-slider {
-    // height: 167px;
-  }
-  .react-multi-carousel-track {
-    margin-bottom: 60px;
-  }
-  .react-multi-carousel-item {
-    padding-right: 20px;
-  }
-  // .before-after-slider,
-  .before-after-slider__second-photo-container,
-  .before-after-slider__first-photo-container {
-    height: 260px;
-    img {
-      height: 100%;
-    }
-  }
-}
-
-// Mobile Responsive
-@media (max-width: 575px) {
-  .slider {
-    .before-after-slider__second-photo-container,
-    .before-after-slider__first-photo-container {
-      height: 225px;
-      img {
-        width: 100%;
-      }
-    }
-    .react-multi-carousel-item {
-      padding-right: 0px;
-    }
-  }
-}
-
-@media (min-width: 576px) and (max-width: 767px) {
-  .slider {
-    .react-multiple-carousel__arrow--right,
-    .react-multiple-carousel__arrow--left {
-      min-width: 63px;
-      min-height: 63px;
-    }
-    .react-multiple-carousel__arrow::before {
-      // font-size: 20px;
-    }
-    .before-after-slider__second-photo-container,
-    .before-after-slider__first-photo-container {
-      height: 300px;
-      img {
-        width: 100%;
-      }
-    }
-    .react-multi-carousel-item {
-      padding-right: 0px;
-    }
-  }
-}
-
-// Medium Devices Responsive
-@media (min-width: 768px) and (max-width: 993px) {
-  .slider {
-    .react-multi-carousel-item {
-      padding-right: 20px;
-    }
-    .react-multiple-carousel__arrow--right,
-    .react-multiple-carousel__arrow--left {
-      min-width: 53px;
-      min-height: 53px;
-    }
-    .react-multiple-carousel__arrow::before {
-      font-size: 20px;
-    }
-    .before-after-slider__second-photo-container,
-    .before-after-slider__first-photo-container {
-      height: 220px;
-    }
-  }
-}
-
-@media (min-width: 993px) and (max-width: 1200px) {
-  .slider {
-    .before-after-slider__second-photo-container,
-    .before-after-slider__first-photo-container {
-      height: 270px;
-    }
-  }
-}
-@media (min-width: 1200px) and (max-width: 1390px) {
-  .slider {
-    .before-after-slider__second-photo-container,
-    .before-after-slider__first-photo-container {
-      height: 340px;
-    }
-  }
-  .react-multiple-carousel__arrow::before {
     font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      background: var(--accent);
+      color: #ffffff;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .ba-modal {
+    padding: 46px 12px 16px;
+
+    .ba-modal-nav {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .portfolio-slider {
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: 38px;
+      height: 38px;
+      top: 42%;
+
+      &::after {
+        font-size: 15px;
+      }
+    }
   }
 }

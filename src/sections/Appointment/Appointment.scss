@@ -1,121 +1,88 @@
 @import "../../sass/colors.scss";
 
 .appointment-section {
-  padding-top: 100px;
+  padding-top: 90px;
+
   .section-title {
-    // margin-top: 60px;
+    margin-bottom: 24px;
   }
-  .section-title {
-    margin-bottom: 10px;
-  }
+
   .yandex-map {
-    height: 600px;
+    height: 540px;
     position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    margin: 0 24px 48px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
 
     iframe {
       width: 100%;
       height: 100%;
+      display: block;
+      transition: filter 0.3s ease;
     }
-    .circle1 {
-      animation-delay: 0s;
-    }
-    .circle2 {
-      animation-delay: 1s;
-    }
+
     .location-name {
       position: absolute;
-      bottom: 30px;
-      left: 0%;
-      right: 0%;
-      background: $color-white;
-      padding: 10px;
-      margin: auto;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(640px, calc(100% - 32px));
+      background: var(--bg-glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-strong);
+      border-radius: 18px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: 0.8;
+      gap: 14px;
       z-index: 2;
-      animation: phone 2s cubic-bezier(0.12, 0.7, 0.74, 0.71) infinite
-        alternate-reverse;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+
+      &:hover {
+        transform: translateX(-50%) translateY(-3px);
+        border-color: var(--accent);
+      }
 
       svg {
-        background: $color-blue;
-        color: $color-white;
-        width: 60px;
-        height: 50px;
+        background: var(--accent);
+        color: #ffffff;
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
         padding: 10px;
-        line-height: 50px;
-        border-radius: 15px;
-        border: 5px solid #dbdefa;
+        border-radius: 12px;
       }
 
       p {
-        margin-left: 20px;
         margin-bottom: 0;
         font-weight: 600;
-        color: $color-black;
+        font-size: 14.5px;
+        color: var(--text-primary);
       }
     }
   }
-
-  .appointment-form-area {
-    padding-left: 50px;
-  }
 }
 
-.appointment-call {
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-
-  .icon {
-    width: 45px;
-    height: 45px;
-    margin-right: 30px;
-    background: $color-white;
-    line-height: 45px;
-    text-align: center;
-    border-radius: 12px;
-    position: relative;
-    z-index: 1;
-    box-shadow: 0 0 5px 3px rgb(0 0 0 / 8%);
-  }
-
-  .call-text {
-    p {
-      font-size: 14px;
-      text-transform: uppercase;
-      color: $color-blue;
-      font-weight: 700;
-      margin-bottom: 5px;
-    }
-
-    h6 {
-      font-size: 18px;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-  }
+[data-theme="dark"] .appointment-section .yandex-map iframe {
+  filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(0.92);
 }
 
-// Mobile Responsive
-@media (max-width: 575px) {
+@media (max-width: 767px) {
   .appointment-section {
-    .appointment-form-area {
-      padding-left: 0;
+    padding-top: 56px;
 
-      .form-group {
-        margin-bottom: 10px;
+    .yandex-map {
+      height: 440px;
+      margin: 0 12px 32px;
+      border-radius: 20px;
 
-        label {
-          font-size: 12px;
-          margin-bottom: 5px;
-        }
-
-        .form-control {
-          height: 45px;
-          border-radius: 10px;
-        }
+      .location-name p {
+        font-size: 13px;
       }
     }
   }

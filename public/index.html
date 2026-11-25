@@ -1,49 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   <meta charset="utf-8" />
-  <!-- Favicon -->
   <link rel="icon" href="%PUBLIC_URL%/favicon.svg" />
-  <!-- Meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Web site created using create-react-app" />
-  <!-- AOS -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
-  <!-- Slider Link -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css">
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Yandex.Metrika counter -->
-  <script type="text/javascript">
-    (function (m, e, t, r, i, k, a) {
-      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
-      m[i].l = 1 * new Date();
-      for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
-      k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-    })
-      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-    ym(98549190, "init", {
-      clickmap: true,
-      trackLinks: true,
-      accurateTrackBounce: true
-    });
+  <meta name="theme-color" content="#583FBC" />
+
+  <!-- Primary SEO (Google & Yandex) -->
+  <title>Боченков Роман Викторович — стоматолог-хирург, имплантолог, ортопед в Москве (м. Калужская)</title>
+  <meta name="description" content="Врач-стоматолог Боченков Роман Викторович — более 17 лет опыта. Одномоментная имплантация, протезирование на 4 и 6 имплантах, 3D-планирование и КЛКТ без слепков. Приём в Москве у м. Калужская, ул. Обручева, 34/63с1." />
+  <meta name="keywords" content="Боченков Роман Викторович, стоматолог хирург Москва, стоматолог имплантолог Калужская, стоматолог ортопед Обручева, одномоментная имплантация зубов, протезирование на имплантах, 3D планирование имплантации, удаление зуба мудрости Москва" />
+  <meta name="author" content="Боченков Роман Викторович" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="yandex" content="index, follow" />
+  <link rel="canonical" href="https://drbochenkov.ru/" />
+  <link rel="alternate" hreflang="ru-RU" href="https://drbochenkov.ru/" />
+
+  <!-- Geo tags for local Search -->
+  <meta name="geo.region" content="RU-MOW" />
+  <meta name="geo.placename" content="Москва" />
+  <meta name="geo.position" content="55.654330;37.539410" />
+  <meta name="ICBM" content="55.654330, 37.539410" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content="Dr. Bochenkov" />
+  <meta property="og:url" content="https://drbochenkov.ru/" />
+  <meta property="og:title" content="Dr. Bochenkov — стоматолог-хирург, имплантолог, ортопед в Москве" />
+  <meta property="og:description" content="Более 17 лет опыта. Имплантация, протезирование, 3D-планирование лечения по современным протоколам. Метро Калужская, ул. Обручева 34/63с1." />
+  <meta property="og:image" content="https://drbochenkov.ru/favicon.svg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Dr. Bochenkov — стоматолог-хирург, имплантолог, ортопед" />
+  <meta name="twitter:description" content="Имплантация, протезирование и 3D-планирование лечения в Москве (м. Калужская)." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Schema.org JSON-LD for Google & Yandex Rich Results -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Dentist",
+          "@id": "https://drbochenkov.ru/#dentist",
+          "name": "Доктор Боченков Роман Викторович — стоматолог-хирург, имплантолог, ортопед",
+          "alternateName": "Dr. Bochenkov",
+          "url": "https://drbochenkov.ru/",
+          "telephone": "+7-915-202-38-88",
+          "priceRange": "$$",
+          "description": "Хирургическая, ортопедическая стоматология и имплантация зубов с 3D-планированием и КЛКТ в Москве у метро Калужская.",
+          "medicalSpecialty": ["OralSurgery", "Implantology", "Prosthodontics"],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ул. Обручева, д. 34/63, стр. 1, офис 21",
+            "addressLocality": "Москва",
+            "addressRegion": "Москва",
+            "postalCode": "117342",
+            "addressCountry": "RU"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 55.654330,
+            "longitude": 37.539410
+          },
+          "hasMap": "https://yandex.ru/navi/213/moscow/house/ulitsa_obrucheva_34_63s1/Z04YcwRpTUQHQFtvfXp0dX9gZA==/?ll=37.539410%2C55.654330&z=16",
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:00",
+            "closes": "21:00"
+          },
+          "sameAs": ["https://t.me/DrBochenkov"],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "8",
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://drbochenkov.ru/#doctor",
+          "name": "Боченков Роман Викторович",
+          "jobTitle": "Врач стоматолог-хирург, имплантолог, ортопед",
+          "url": "https://drbochenkov.ru/",
+          "worksFor": { "@id": "https://drbochenkov.ru/#dentist" },
+          "sameAs": ["https://t.me/DrBochenkov"]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Больно ли устанавливать зубной имплантат?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Нет. Процедура проводится под современной местной анестезией, поэтому во время операции пациент чувствует только лёгкое прикосновение. При использовании 3D-шаблонов вмешательство минимально травматично."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Можно ли удалить зуб и сразу поставить имплантат с временной коронкой?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Да, это одномоментная имплантация. Если нет острого воспаления и достаточно костной ткани, имплантат устанавливается сразу в лунку удалённого зуба, а в зоне улыбки заранее изготавливается временная коронка."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Зачем нужно 3D-сканирование и КЛКТ перед лечением?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Конусно-лучевая томография (КЛКТ) и внутриротовой 3D-сканер позволяют увидеть анатомию с точностью до долей миллиметра, отказаться от неприятных слепков и заранее спрогнозировать результат."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Сколько времени занимает полное приживление имплантата?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "В среднем остеоинтеграция занимает от 2 до 4 месяцев на нижней челюсти и 3–6 месяцев на верхней. Точные сроки врач определяет индивидуально после анализа КЛКТ."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Как записаться на консультацию и что взять с собой?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Вы можете написать в WhatsApp, Telegram или позвонить по номеру +7 (915) 202-38-88. Если у вас уже есть свежий снимок КЛКТ (до 6 месяцев), возьмите его с собой."
+              }
+            }
+          ]
+        }
+      ]
+    }
   </script>
-  <noscript>
-    <div><img src="https://mc.yandex.ru/watch/98543068" style="position:absolute; left:-9999px;" alt="" /></div>
-  </noscript>
-  <!-- /Yandex.Metrika counter -->
-  <!-- Title -->
-  <title>Dr. Bochenkov</title>
 </head>
 
 <body>
   <div id="root"></div>
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+  <noscript>
+    Для корректной работы сайта и записи на приём к стоматологу Боченкову Роману Викторовичу включите JavaScript в настройках браузера. Телефон для записи: +7 (915) 202-38-88.
+  </noscript>
 </body>
 
 </html>

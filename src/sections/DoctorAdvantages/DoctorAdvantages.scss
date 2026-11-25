@@ -1,0 +1,218 @@
+@import "../../sass/colors.scss";
+
+@keyframes heartBeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.26);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.22);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+@keyframes userNod {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-4px) scale(1.1);
+  }
+  70% {
+    transform: translateY(1px) scale(0.98);
+  }
+}
+
+@keyframes cpuPulse {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(90deg) scale(1.12);
+  }
+}
+
+@keyframes awardSwing {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(-12deg) scale(1.1);
+  }
+  65% {
+    transform: rotate(10deg) scale(1.1);
+  }
+}
+
+.advantages-section {
+  padding-bottom: 40px;
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+    align-items: stretch;
+
+    .reveal {
+      height: 100%;
+    }
+  }
+
+  .stat-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+    padding: 26px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-value {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+  }
+
+  .advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+
+    .reveal {
+      height: 100%;
+    }
+  }
+
+  .advantage-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+    padding: 24px 22px;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+
+      .adv-icon--user {
+        background: rgba(58, 134, 255, 0.16);
+        box-shadow: 0 8px 20px rgba(58, 134, 255, 0.24);
+        svg {
+          animation: userNod 0.9s ease-in-out infinite;
+        }
+      }
+
+      .adv-icon--cpu {
+        background: rgba(94, 242, 184, 0.16);
+        box-shadow: 0 8px 20px rgba(72, 191, 227, 0.25);
+        svg {
+          animation: cpuPulse 1.6s ease-in-out infinite;
+        }
+      }
+
+      .adv-icon--heart {
+        background: rgba(255, 77, 109, 0.16);
+        box-shadow: 0 8px 20px rgba(233, 69, 96, 0.28);
+        svg {
+          animation: heartBeat 1.15s ease-in-out infinite;
+        }
+      }
+
+      .adv-icon--award {
+        background: rgba(244, 162, 97, 0.18);
+        box-shadow: 0 8px 20px rgba(244, 162, 97, 0.28);
+        svg {
+          animation: awardSwing 1.1s ease-in-out infinite;
+        }
+      }
+    }
+
+    .advantage-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      transition: background-color 0.25s ease, box-shadow 0.25s ease;
+
+      .adv-svg {
+        width: 36px;
+        height: 36px;
+        display: block;
+      }
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 1.55;
+      margin-bottom: 0;
+      color: var(--text-secondary);
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .advantages-section {
+    .stats-grid,
+    .advantages-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .advantages-section {
+    .stats-grid,
+    .advantages-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

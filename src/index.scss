@@ -1,80 +1,128 @@
 @import "./sass/fonts.scss";
 @import "./sass/colors.scss";
 
-// Common CSS
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
 body {
   padding: 0;
   margin: 0;
   font-family: $body-font;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  overflow-x: clip;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
 }
+
+section[id],
+footer[id] {
+  scroll-margin-top: 96px;
+}
+
 img {
   max-width: 100%;
+  height: auto;
 }
+
 p {
-  color: $color-gray;
-  font-size: 18px;
+  color: var(--text-secondary);
+  font-size: 17px;
+  line-height: 1.65;
 }
+
 .light-text {
-  color: $color-white;
+  color: rgba(255, 255, 255, 0.92);
 }
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  color: $color-black;
+  color: var(--text-primary);
   margin-bottom: 0;
 }
+
 .sphere {
   opacity: 0.6;
-  box-shadow: 5px 5px 4px rgb(0 0 0 / 27%);
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.28);
   border-radius: 50%;
 }
+
 .theme-btn {
-  // a {
-  background: $color-blue;
-  color: $color-white;
-  padding: 14px 20px;
+  background: var(--accent);
+  color: var(--text-on-accent);
+  padding: 13px 24px;
   text-decoration: none;
-  border-radius: 15px;
-  transition: 0.3s;
+  border-radius: 14px;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease, box-shadow 0.25s ease;
   border: 1px solid transparent;
   font-size: 14px;
-  font-weight: 500;
-  display: inline-block;
-  box-shadow: 0px 7px 29px 0px rgba(100, 100, 111, 0.2);
-  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 8px 24px var(--accent-glow);
+  cursor: pointer;
+
   &:hover {
-    background: $color-white;
-    color: $color-blue;
-    border: 1px solid $color-blue;
-    // }
+    background: var(--accent-hover);
+    color: var(--text-on-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px var(--accent-glow);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.theme-btn--outline {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+    box-shadow: none;
+
+    &:hover {
+      background: var(--bg-surface-alt);
+      color: var(--accent);
+      border-color: var(--accent);
+      box-shadow: none;
+    }
   }
 }
+
 .none-decor {
   text-decoration: none;
 }
+
 .section-bg {
-  background-color: $color-blue-gray;
-  box-shadow: inset 0px 0px 10px 10px #00000026;
-}
-.section-common {
-  color: $color-white;
-  border-radius: 48px;
-  margin: 0 25px;
+  background: var(--bg-hero);
+  box-shadow: var(--shadow-lg);
 }
 
-.d-table {
-  width: 100%;
-  height: 100%;
+.section-common {
+  color: var(--text-on-accent);
+  border-radius: 36px;
+  margin: 0 24px;
 }
-.d-table-cell {
-  vertical-align: middle;
+
+.section-loader {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pt-100 {
-  padding-top: 100px;
+  padding-top: 90px;
 }
 .pt-30 {
   padding-top: 30px;
@@ -86,48 +134,56 @@ h6 {
   padding-bottom: 30px;
 }
 
-// Mobile Responsive
-@media (max-width: 575px) {
+// Unified Swiper styling across sections
+.swiper-pagination-bullet {
+  background: var(--text-muted);
+  opacity: 0.4;
+  transition: width 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--accent);
+  opacity: 1;
+  width: 22px;
+  border-radius: 6px;
+}
+
+@media (max-width: 767px) {
   .section-common {
-    margin: 0 15px;
-    border-radius: 20px;
+    margin: 0 12px;
+    border-radius: 24px;
   }
 
   p {
-    font-size: 16px;
+    font-size: 15.5px;
   }
 
   .pt-100 {
-    padding-top: 50px;
+    padding-top: 56px;
   }
   .pb-70 {
-    padding-bottom: 20px;
-  }
-}
-@media (min-width: 576px) and (max-width: 767px) {
-  .section-common {
-    margin: 0 15px;
-    border-radius: 20px;
-  }
-
-  p {
-    font-size: 16px;
-  }
-
-  .pt-100 {
-    padding-top: 50px;
-  }
-  .pb-70 {
-    padding-bottom: 20px;
+    padding-bottom: 40px;
   }
 }
 
-// Medium Responsive
-@media (min-width: 758px) and (max-width: 991px) {
+@media (min-width: 768px) and (max-width: 991px) {
   .pt-100 {
     padding-top: 70px;
   }
   .pb-70 {
-    padding-bottom: 40px;
+    padding-bottom: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

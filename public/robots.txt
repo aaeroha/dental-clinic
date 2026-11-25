@@ -1,3 +1,11 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /static/js/*.map
+Disallow: /static/css/*.map
+
+User-agent: Yandex
+Allow: /
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid /
+
+Host: https://drbochenkov.ru
+Sitemap: https://drbochenkov.ru/sitemap.xml

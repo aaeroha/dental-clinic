@@ -1,62 +1,48 @@
+@import "../../sass/colors.scss";
+
 .service-box {
-    border: 1px solid #1819451a;
-    padding: 15px;
-    border-radius: 32px;
-    text-align: center;
-    margin-bottom: 30px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  border-radius: 26px;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 
-    .icon-area {
-        background: #DBDEFA;
-        padding: 60px;
-        border-radius: 30px;
-        margin-bottom: 30px;
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+  }
 
-        .icon-box {
-            margin: auto;
-        }
+  .icon-area {
+    background: var(--bg-icon-soft);
+    padding: 42px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+
+    .icon-box {
+      margin: auto;
+    }
+  }
+
+  .service-text {
+    h3 {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 14px;
+      color: var(--text-primary);
     }
 
-    .service-text {
-        h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 20px;
-
-            a {
-                text-decoration: none;
-                color: #181945;
-            }
-        }
-
-        p {
-            font-size: 14px;
-        }
+    p {
+      font-size: 14.5px;
+      line-height: 1.6;
+      margin-bottom: 0;
+      color: var(--text-secondary);
     }
-}
-
-// Small Device Responsive
-@media (min-width: 576px) and (max-width: 767px) {
-    .service-box {
-        .icon-area {
-            padding: 50px;
-        }
-    }
-}
-
-// Medium Device Responsive
-@media (min-width: 768px) and (max-width: 991px) {
-    .service-box {
-        .icon-area {
-            padding: 50px;
-        }
-    }
-}
-
-// Medium Device Responsive
-@media (min-width: 992px) and (max-width: 1199px) {
-    .service-box {
-        .icon-area {
-            padding: 50px;
-        }
-    }
+  }
 }

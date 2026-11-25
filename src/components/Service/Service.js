@@ -6,19 +6,17 @@ const Service = ({ serviceList }) => {
   const { title, description, icon } = serviceList;
 
   return (
-    <div className="col-lg-4 single-testimoni">
-      <div className="service-box">
-        <div className="service-icon">
-          <div className="icon-area">
-            <ThemeIcon icon={icon} />
-          </div>
-        </div>
-        <div className="service-text">
-          <h3>{title}</h3>
-          <p>{description}</p>
+    <article className="service-box">
+      <div className="service-icon">
+        <div className="icon-area">
+          <ThemeIcon icon={icon} />
         </div>
       </div>
-    </div>
+      <div className="service-text">
+        <h3>{title}</h3>
+        <p>{description}</p>
+      </div>
+    </article>
   );
 };
 
