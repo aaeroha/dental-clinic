@@ -12,6 +12,68 @@
   }
 }
 
+@keyframes targetFocus {
+  0%,
+  100% {
+    transform: scale(1.12);
+  }
+  50% {
+    transform: scale(0.84);
+  }
+}
+
+@keyframes targetDotPulse {
+  0%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
+@keyframes layerFloatTop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+
+@keyframes layerFloatBot {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(2.5px);
+  }
+}
+
+@keyframes cubeOrbit {
+  0%,
+  100% {
+    transform: rotate(-6deg) scale(0.96);
+  }
+  50% {
+    transform: rotate(6deg) scale(1.06);
+  }
+}
+
+@keyframes chipTurnPulse {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(90deg) scale(1.1);
+  }
+}
+
 .emergency-section {
   padding-top: 84px;
   padding-bottom: 84px;
@@ -104,15 +166,68 @@
       }
 
       .tech-module-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 15px;
-        background: rgba(255, 255, 255, 0.2);
-        color: #ffffff;
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        background: rgba(11, 15, 34, 0.85);
+        border: 1px solid rgba(94, 242, 184, 0.28);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 22px;
+
+        .tech-svg {
+          width: 34px;
+          height: 34px;
+          display: block;
+        }
+
+        &.tech-icon--dark-radar {
+          background: #0a1022;
+          border-color: rgba(94, 242, 184, 0.42);
+          box-shadow: inset 0 0 12px rgba(94, 242, 184, 0.14),
+            0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        &.tech-icon--dark-scan {
+          background: #0d132b;
+          border-color: rgba(76, 201, 240, 0.4);
+        }
+
+        &.tech-icon--dark-chip {
+          background: #0e122b;
+          border-color: rgba(124, 102, 240, 0.45);
+        }
+      }
+
+      .tech-svg--target {
+        .target-reticle {
+          transform-origin: 20px 20px;
+          animation: targetFocus 2.4s ease-in-out infinite;
+        }
+        .target-dot {
+          transform-origin: 20px 20px;
+          animation: targetDotPulse 2.4s ease-in-out infinite;
+        }
+      }
+
+      .tech-svg--layers {
+        .layer-top {
+          animation: layerFloatTop 2.6s ease-in-out infinite;
+        }
+        .layer-bot {
+          animation: layerFloatBot 2.6s ease-in-out infinite;
+        }
+      }
+
+      .tech-svg--cube .cube-wire {
+        transform-origin: 20px 20px;
+        filter: drop-shadow(0 0 4px rgba(94, 242, 184, 0.5));
+        animation: cubeOrbit 3s ease-in-out infinite;
+      }
+
+      .tech-svg--chip {
+        animation: chipTurnPulse 3.2s ease-in-out infinite;
       }
 
       .tech-module-tag {
