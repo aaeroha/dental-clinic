@@ -9,6 +9,9 @@ const STATS = [
   { target: 3500, suffix: "+", label: "успешных операций и имплантаций" },
   { target: 98, suffix: "%", label: "приживаемость имплантатов" },
   { target: 0, suffix: "", label: "неприятных слепков — 100% 3D" },
+  { target: 50, suffix: "", label: "средний рейтинг по отзывам пациентов", decimals: 1, postfix: " ★" },
+  { target: 10, suffix: "+ лет", label: "средний срок службы циркониевых конструкций" },
+  { target: 20, suffix: "+", label: "сертификатов и курсов повышения квалификации" },
 ];
 
 function DoctorCheckSvg() {
@@ -122,12 +125,12 @@ const ADVANTAGES = [
   {
     icon: <GoldMedalSvg />,
     animClass: "adv-icon--award",
-    title: "Честная смета и гарантия",
-    text: "Прозрачное ценообразование без скрытых доплат, проверенные системы имплантатов и официальная гарантия.",
+    title: "Честная смета и контроль",
+    text: "Прозрачное ценообразование без скрытых доплат, сертифицированные системы имплантатов и плановое наблюдение на всех этапах.",
   },
 ];
 
-function AnimatedNumber({ target, suffix }) {
+function AnimatedNumber({ target, suffix, decimals = 0, postfix = "" }) {
   const [val, setVal] = useState(0);
   const ref = useRef(null);
 
@@ -145,7 +148,7 @@ function AnimatedNumber({ target, suffix }) {
       const tick = (now) => {
         const progress = Math.min(1, (now - start) / duration);
         const eased = 1 - Math.pow(1 - progress, 3);
-        setVal(Math.round(target * eased));
+        setVal(decimals > 0 ? target * eased : Math.round(target * eased));
         if (progress < 1) {
           rafId = requestAnimationFrame(tick);
         }
@@ -179,8 +182,8 @@ function AnimatedNumber({ target, suffix }) {
 
   return (
     <span ref={ref}>
-      {target === 0 ? "0" : val.toLocaleString("ru-RU")}
-      {suffix}
+      {target === 0 ? "0" : (decimals > 0 ? (val / 10).toFixed(decimals) : val.toLocaleString("ru-RU"))}
+      {suffix}{postfix}
     </span>
   );
 }
@@ -209,7 +212,7 @@ const DoctorAdvantages = () => {
             <Reveal key={item.label} delay={idx * 80} variant="scale-in">
               <div className="stat-card">
                 <div className="stat-value">
-                  <AnimatedNumber target={item.target} suffix={item.suffix} />
+                  <AnimatedNumber target={item.target} suffix={item.suffix} decimals={item.decimals || 0} postfix={item.postfix || ""} />
                 </div>
                 <div className="stat-label">{item.label}</div>
               </div>

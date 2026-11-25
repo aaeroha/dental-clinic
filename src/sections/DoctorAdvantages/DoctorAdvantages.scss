@@ -60,7 +60,7 @@
 
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px;
     margin-bottom: 28px;
     align-items: stretch;
@@ -205,6 +205,12 @@
       justify-content: center;
       margin-bottom: 18px;
       transition: background-color 0.25s ease, box-shadow 0.25s ease;
+
+      /* In light theme, use the softer icon background */
+      :root:not([data-theme="dark"]) & {
+        background: var(--bg-icon-soft);
+        border-color: rgba(88, 63, 188, 0.12);
+      }
 
       .adv-svg {
         width: 36px;
