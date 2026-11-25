@@ -5,7 +5,7 @@ import Reveal from "../../components/Reveal/Reveal";
 import { FiChevronsDown } from "react-icons/fi";
 
 const STATS = [
-  { target: 17, suffix: "+", label: "лет клинической практики" },
+  { target: 19, suffix: "+", label: "лет клинической практики" },
   { target: 3500, suffix: "+", label: "успешных операций и имплантаций" },
   { target: 98, suffix: "%", label: "приживаемость имплантатов" },
   { target: 0, suffix: "", label: "неприятных слепков — 100% 3D" },
@@ -200,7 +200,7 @@ const DoctorAdvantages = () => {
           <SectionTitle
             subTitle="О враче и подходе"
             title="Персональная ответственность за вашу улыбку"
-            description="Лечение ведёт лично Боченков Роман Викторович — стоматолог-хирург, имплантолог и ортопед."
+            description="Я веду приём лично — от первичной 3D-диагностики и хирургии до финального протезирования."
           />
         </Reveal>
 

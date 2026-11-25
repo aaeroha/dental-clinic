@@ -15,7 +15,7 @@ import { trackGoal } from "../../utils/metrika";
 const HERO_TITLE = "Приветствую Вас!";
 const HERO_LINE_1 = "Меня зовут Боченков Роман Викторович.";
 const HERO_LINE_2 =
-  "Я врач-стоматолог, уже более 17 лет веду ортопедический и хирургический приёмы. В практике для меня важно найти индивидуальный подход к каждому пациенту и провести лечение по инновационным протоколам.";
+  "Я врач-стоматолог, уже более 19 лет веду ортопедический и хирургический приёмы. В практике для меня важно найти индивидуальный подход к каждому пациенту и провести лечение по инновационным протоколам.";
 const TOTAL_CHARS = HERO_TITLE.length + HERO_LINE_1.length + HERO_LINE_2.length;
 
 const Banner = () => {
@@ -149,7 +149,7 @@ const Banner = () => {
 
                 <div className="hero-stats">
                   <div className="hero-stat">
-                    <strong>17+ лет</strong>
+                    <strong>19+ лет</strong>
                     <span>клинической практики</span>
                   </div>
                   <div className="hero-stat">

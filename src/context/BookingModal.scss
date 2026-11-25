@@ -119,6 +119,16 @@
         border-color: var(--accent);
       }
     }
+
+    &--yandex {
+      .booking-option-icon {
+        background: #fc3f1d;
+        box-shadow: 0 6px 16px rgba(252, 63, 29, 0.3);
+      }
+      &:hover {
+        border-color: #fc3f1d;
+      }
+    }
   }
 
   .booking-modal-meta {
