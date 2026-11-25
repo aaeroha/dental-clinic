@@ -73,11 +73,10 @@ const Navbar = () => {
 
   const navbarItems = [
     { name: "О враче", path: "about", block: "start" },
-    { name: "Портфолио", path: "portfolio", block: "start" },
-    { name: "Сертификаты", path: "sertificates", block: "start" },
+    { name: "Технологии", path: "emergency", block: "start" },
+    { name: "Работы", path: "portfolio", block: "start" },
     { name: "Отзывы", path: "testimonail", block: "start" },
     { name: "Вопросы", path: "faq", block: "start" },
-    { name: "Карта", path: "map", block: "start" },
     { name: "Контакты", path: "footer", block: "end" },
   ];
 

@@ -101,7 +101,7 @@ const Emergency = () => {
   const { openBooking } = useBooking();
 
   return (
-    <section className="emergency-section">
+    <section id="emergency" className="emergency-section">
       <div className="container">
         <div className="row align-items-stretch g-4 g-xl-5">
           <div className="col-lg-7 d-flex">

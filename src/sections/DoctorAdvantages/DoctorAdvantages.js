@@ -11,7 +11,6 @@ const STATS = [
   { target: 0, suffix: "", label: "неприятных слепков — 100% 3D" },
   { target: 50, suffix: "", label: "средний рейтинг по отзывам пациентов", decimals: 1, postfix: " ★" },
   { target: 10, suffix: "+ лет", label: "средний срок службы циркониевых конструкций" },
-  { target: 20, suffix: "+", label: "сертификатов и курсов повышения квалификации" },
 ];
 
 function DoctorCheckSvg() {

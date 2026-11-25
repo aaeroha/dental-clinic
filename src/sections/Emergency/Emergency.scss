@@ -199,6 +199,25 @@
         }
       }
 
+      /* Светлая тема: иконки становятся полупрозрачными тёмными контейнерами
+         (карточки модуля всё равно на градиентном фоне, поэтому тёмные иконки
+         в светлой теме выглядят контрастно и современно) */
+      :root:not([data-theme="dark"]) & {
+        .tech-module-icon {
+          background: rgba(8, 10, 28, 0.78) !important;
+          border-color: rgba(94, 242, 184, 0.35) !important;
+        }
+        &.tech-icon--dark-radar {
+          background: rgba(6, 8, 20, 0.88) !important;
+        }
+        &.tech-icon--dark-scan {
+          background: rgba(8, 12, 30, 0.88) !important;
+        }
+        &.tech-icon--dark-chip {
+          background: rgba(10, 12, 32, 0.88) !important;
+        }
+      }
+
       .tech-svg--target {
         .target-reticle {
           transform-origin: 20px 20px;
