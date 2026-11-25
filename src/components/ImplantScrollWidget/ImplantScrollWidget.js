@@ -38,9 +38,9 @@ const ImplantScrollWidget = () => {
   const screwTilt =
     screwPhase < 1 ? Math.sin(screwPhase * Math.PI * 8) * 7 : 0;
 
-  // Phase 2 (0.55 -> 1.0): Crown descends 24px from top onto the seated implant
+  // Phase 2 (0.55 -> 1.0): Crown descends 27.5px onto the seated implant (y=56) with zero gap
   const crownPhase = Math.max(0, Math.min(1, (progress - 0.55) / 0.42));
-  const crownY = -22 + crownPhase * 22;
+  const crownY = -22 + crownPhase * 27.5;
 
   return (
     <button
