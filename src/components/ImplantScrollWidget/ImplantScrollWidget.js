@@ -13,9 +13,10 @@ const ImplantScrollWidget = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const docHeight =
         document.documentElement.scrollHeight - window.innerHeight;
-      const ratio = docHeight > 0 ? Math.min(1, Math.max(0, scrollTop / docHeight)) : 0;
+      const ratio =
+        docHeight > 0 ? Math.min(1, Math.max(0, scrollTop / docHeight)) : 0;
       setProgress(ratio);
-      setVisible(scrollTop > 260);
+      setVisible(scrollTop > 220);
     };
 
     const onScroll = () => {
@@ -31,14 +32,15 @@ const ImplantScrollWidget = () => {
     };
   }, []);
 
-  // Screw starts slightly higher and seats neatly down to y=40..72 inside 0..84 viewBox
-  const screwPhase = Math.min(1, progress / 0.75);
-  const screwY = -6 + screwPhase * 10;
-  const screwTilt = Math.sin(screwPhase * Math.PI * 6) * 3.5;
+  // Phase 1 (0 -> 0.68): Implant (shunt) starts high above gum (y=-26) and screws down 30px into bone (y=+4)
+  const screwPhase = Math.min(1, progress / 0.68);
+  const screwY = -26 + screwPhase * 30;
+  const screwTilt =
+    screwPhase < 1 ? Math.sin(screwPhase * Math.PI * 8) * 7 : 0;
 
-  // Crown descends from y=4 down onto implant top cleanly inside viewBox
-  const crownPhase = Math.max(0, Math.min(1, (progress - 0.55) / 0.4));
-  const crownY = -4 + crownPhase * 8;
+  // Phase 2 (0.55 -> 1.0): Crown descends 24px from top onto the seated implant
+  const crownPhase = Math.max(0, Math.min(1, (progress - 0.55) / 0.42));
+  const crownY = -22 + crownPhase * 22;
 
   return (
     <button
@@ -48,9 +50,20 @@ const ImplantScrollWidget = () => {
       aria-label="Прокрутить страницу наверх"
       title={`Прогресс: ${Math.round(progress * 100)}% — Наверх`}
     >
-      <svg viewBox="0 0 64 84" className="implant-widget-svg" aria-hidden="true">
+      <svg
+        viewBox="0 0 64 102"
+        className="implant-widget-svg"
+        aria-hidden="true"
+      >
         <defs>
-          <linearGradient id="widgetImpGrad" x1="14" y1="8" x2="50" y2="76" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id="widgetImpGrad"
+            x1="14"
+            y1="8"
+            x2="50"
+            y2="92"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop offset="0%" stopColor="#167ffc" />
             <stop offset="100%" stopColor="#583FBC" />
           </linearGradient>
@@ -58,45 +71,50 @@ const ImplantScrollWidget = () => {
 
         {/* Gum / bone support line */}
         <path
-          d="M10,44 Q32,38 54,44"
+          d="M9,60 Q32,53 55,60"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2.2"
-          strokeOpacity="0.32"
+          strokeWidth="2.4"
+          strokeOpacity="0.38"
           strokeLinecap="round"
         />
 
-        {/* Threaded implant body driving into bone */}
+        {/* Threaded implant body (shunt) starting higher above the gum and screwing down */}
         <g
           style={{
             transform: `translateY(${screwY.toFixed(1)}px) rotate(${screwTilt.toFixed(1)}deg)`,
-            transformOrigin: "32px 54px",
+            transformOrigin: "32px 68px",
           }}
         >
           <path
-            d="M23,38 L41,38 L37,68 Q32,74 27,68 Z"
+            d="M23,52 L41,52 L37,84 Q32,90 27,84 Z"
             fill="url(#widgetImpGrad)"
           />
-          <g stroke="#ffffff" strokeWidth="1.9" strokeLinecap="round" opacity="0.92">
-            <line x1="22" y1="45" x2="42" y2="43" />
-            <line x1="23" y1="52" x2="41" y2="50" />
-            <line x1="24" y1="59" x2="40" y2="57" />
-            <line x1="26" y1="65" x2="38" y2="63" />
+          <g
+            stroke="#ffffff"
+            strokeWidth="2"
+            strokeLinecap="round"
+            opacity="0.95"
+          >
+            <line x1="22" y1="60" x2="42" y2="58" />
+            <line x1="23" y1="67" x2="41" y2="65" />
+            <line x1="24" y1="74" x2="40" y2="72" />
+            <line x1="26" y1="81" x2="38" y2="79" />
           </g>
         </g>
 
-        {/* Crown silhouette seating on top */}
+        {/* Crown silhouette descending onto the implant */}
         <g
           style={{
             transform: `translateY(${crownY.toFixed(1)}px)`,
-            opacity: 0.4 + crownPhase * 0.6,
+            opacity: 0.25 + crownPhase * 0.75,
           }}
         >
           <path
-            d="M20,14 C16,14 14,22 17,30 C19,35 23,37 32,37 C41,37 45,35 47,30 C50,22 48,14 44,14 C40,14 36,18 32,18 C28,18 24,14 20,14 Z"
+            d="M20,27 C16,27 14,35 17,43 C19,48 23,51 32,51 C41,51 45,48 47,43 C50,35 48,27 44,27 C40,27 36,31 32,31 C28,31 24,27 20,27 Z"
             fill="url(#widgetImpGrad)"
             stroke="#ffffff"
-            strokeWidth="1.6"
+            strokeWidth="1.7"
           />
         </g>
       </svg>
