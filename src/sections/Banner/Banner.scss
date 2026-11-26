@@ -40,15 +40,19 @@
   overflow: hidden;
   contain: layout style;
 
-  .banner-pattern {
+  .banner-tech-backdrop {
     position: absolute;
-    top: 10%;
-    right: 0;
-    left: 0;
-    width: 100%;
+    inset: 0;
     z-index: -1;
-    opacity: 0.35;
     pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      radial-gradient(circle at 76% 38%, rgba(94, 242, 184, 0.14), transparent 46%),
+      radial-gradient(circle at 18% 82%, rgba(124, 102, 240, 0.22), transparent 44%);
+    background-size: 46px 46px, 46px 46px, 100% 100%, 100% 100%;
+    mask-image: radial-gradient(ellipse 92% 92% at 62% 50%, #000 35%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 92% 92% at 62% 50%, #000 35%, transparent 100%);
   }
 }
 
@@ -357,31 +361,6 @@
     }
   }
 
-  .shapes {
-    img {
-      position: absolute;
-      pointer-events: none;
-
-      &:nth-child(1) {
-        left: 2%;
-        top: 2%;
-        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.4));
-      }
-      &:nth-child(2) {
-        right: 4%;
-        top: 6%;
-      }
-      &:nth-child(3) {
-        right: 2%;
-        top: 42%;
-      }
-      &:nth-child(4) {
-        left: 8%;
-        top: 30%;
-        z-index: -1;
-      }
-    }
-  }
 }
 
 @media (max-width: 991px) {
@@ -415,9 +394,7 @@
   }
 
   .banner-img-area {
-    .shapes img:nth-child(1) {
-      max-width: 64px;
-    }
+    margin-top: 8px;
   }
 }
 

@@ -1,16 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, lazy, useEffect, useRef, useState } from "react";
 import "./Banner.scss";
 import icon from "../../assets/banner/icons/Calling.png";
 import bannerImgFallback from "../../assets/banner/1.png";
 import bannerImgDesktop from "../../assets/banner/1-desktop.webp";
 import bannerImgMobile from "../../assets/banner/1-mobile.webp";
-import bannerPattern from "../../assets/banner/pattern_02.png";
-import shapeOne from "../../assets/banner/vector_01.png";
-import shapeTwo from "../../assets/banner/vector_02.png";
-import shapeThree from "../../assets/banner/vector_03.png";
-import shapeFour from "../../assets/banner/pattern.png";
 import { useBooking } from "../../context/BookingContext";
 import { trackGoal } from "../../utils/metrika";
+
+const BannerImplant3D = lazy(() =>
+  import("../../components/Implant3D/BannerImplant3D")
+);
 
 const HERO_TITLE = "Приветствую Вас!";
 const HERO_LINE_1 = "Меня зовут Боченков Роман Викторович.";
@@ -234,38 +233,15 @@ const Banner = () => {
                 </div>
               </div>
 
-              <div className="shapes" aria-hidden="true">
-                <img src={shapeOne} alt="" className="swing" width="100" height="100" />
-                <img
-                  src={shapeTwo}
-                  alt=""
-                  className="complex-motion-fast sphere"
-                  width="16"
-                  height="16"
-                />
-                <img
-                  src={shapeThree}
-                  alt=""
-                  className="complex-motion-long sphere"
-                  width="26"
-                  height="26"
-                />
-                <img src={shapeFour} alt="" className="grow-shrink" width="144" height="144" />
-              </div>
+              <Suspense fallback={null}>
+                <BannerImplant3D />
+              </Suspense>
             </div>
           </div>
         </div>
       </div>
 
-      <img
-        className="banner-pattern wave"
-        src={bannerPattern}
-        alt=""
-        width="1392"
-        height="484"
-        aria-hidden="true"
-        decoding="async"
-      />
+      <div className="banner-tech-backdrop" aria-hidden="true" />
     </section>
   );
 };
