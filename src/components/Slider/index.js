@@ -9,6 +9,14 @@ import "swiper/css/pagination";
 import BeforeAfter from "../BeforeAfter/BeforeAfter";
 import { trackGoal } from "../../utils/metrika";
 
+const workImages = import.meta.glob("../../assets/banner/work/*-*.webp", {
+  eager: true,
+  import: "default",
+});
+
+const getWorkImage = (type, id, variant) =>
+  workImages[`../../assets/banner/work/${type}${id}-${variant}.webp`];
+
 const PORTFOLIO_CASES = [
   { id: 1, title: "Восстановление эстетики улыбки" },
   { id: 2, title: "Имплантация и протезирование" },
@@ -76,8 +84,8 @@ function Slider() {
         {PORTFOLIO_CASES.map((item, idx) => (
           <SwiperSlide key={item.id}>
             <BeforeAfter
-              beforeSrc={require(`../../assets/banner/work/before${item.id}-${suffix}.webp`)}
-              afterSrc={require(`../../assets/banner/work/after${item.id}-${suffix}.webp`)}
+              beforeSrc={getWorkImage("before", item.id, suffix)}
+              afterSrc={getWorkImage("after", item.id, suffix)}
               beforeAlt={`До лечения — ${item.title}`}
               afterAlt={`После лечения — ${item.title}`}
               caption={item.title}
@@ -125,8 +133,16 @@ function Slider() {
               <div className="ba-modal-stage">
                 <BeforeAfter
                   key={PORTFOLIO_CASES[expandedIndex].id}
-                  beforeSrc={require(`../../assets/banner/work/before${PORTFOLIO_CASES[expandedIndex].id}-desktop.webp`)}
-                  afterSrc={require(`../../assets/banner/work/after${PORTFOLIO_CASES[expandedIndex].id}-desktop.webp`)}
+                  beforeSrc={getWorkImage(
+                    "before",
+                    PORTFOLIO_CASES[expandedIndex].id,
+                    "desktop"
+                  )}
+                  afterSrc={getWorkImage(
+                    "after",
+                    PORTFOLIO_CASES[expandedIndex].id,
+                    "desktop"
+                  )}
                   beforeAlt={`До лечения — ${PORTFOLIO_CASES[expandedIndex].title}`}
                   afterAlt={`После лечения — ${PORTFOLIO_CASES[expandedIndex].title}`}
                   caption={`${PORTFOLIO_CASES[expandedIndex].title} (${expandedIndex + 1} / ${PORTFOLIO_CASES.length})`}

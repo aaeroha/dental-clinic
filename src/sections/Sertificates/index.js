@@ -14,6 +14,14 @@ import "swiper/css/autoplay";
 
 const TOTAL_CERTIFICATES = 10;
 
+const certImages = import.meta.glob("../../assets/sertificates/*-*.webp", {
+  eager: true,
+  import: "default",
+});
+
+const getCertImage = (num, variant) =>
+  certImages[`../../assets/sertificates/${num}-${variant}.webp`];
+
 const GRAD_CAPS = [
   { left: "6%", delay: "0s", duration: "4.6s", size: 58, height: "-480px", drift: "-28px", spin: "-220deg" },
   { left: "16%", delay: "-1.4s", duration: "5.2s", size: 32, height: "-410px", drift: "24px", spin: "260deg" },
@@ -112,11 +120,11 @@ const Sertificates = () => {
                     <picture>
                       <source
                         media="(max-width: 767px)"
-                        srcSet={require(`../../assets/sertificates/${num}-mobile.webp`)}
+                        srcSet={getCertImage(num, "mobile")}
                         type="image/webp"
                       />
                       <img
-                        src={require(`../../assets/sertificates/${num}-desktop.webp`)}
+                        src={getCertImage(num, "desktop")}
                         alt={`Сертификат врача №${num}`}
                         loading="lazy"
                         decoding="async"
@@ -167,7 +175,7 @@ const Sertificates = () => {
                 <FiChevronLeft />
               </button>
               <img
-                src={require(`../../assets/sertificates/${activeIndex + 1}-desktop.webp`)}
+                src={getCertImage(activeIndex + 1, "desktop")}
                 alt={`Сертификат врача №${activeIndex + 1}`}
                 className="certificate-modal-img"
               />
