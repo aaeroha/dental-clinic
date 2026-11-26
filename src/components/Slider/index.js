@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
-import { Navigation, Pagination, A11y } from "swiper/modules";
+import { Navigation, Pagination, Autoplay, A11y } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FiX, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/autoplay";
 import BeforeAfter from "../BeforeAfter/BeforeAfter";
 import { trackGoal } from "../../utils/metrika";
 
@@ -64,11 +65,17 @@ function Slider() {
   return (
     <div className="portfolio-slider">
       <Swiper
-        modules={[Navigation, Pagination, A11y]}
+        modules={[Navigation, Pagination, Autoplay, A11y]}
         spaceBetween={24}
         slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
+        loop
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
         noSwipingClass="swiper-no-swiping"
         breakpoints={{
           768: {

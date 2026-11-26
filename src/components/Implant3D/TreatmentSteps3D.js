@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { FiPlus, FiMinus, FiRotateCcw } from "react-icons/fi";
 import {
   createAbutment,
   createAnatomicalCrown,
   createDiagnosticTooth,
-  createJawBoneBed,
+  createJawAnatomy,
   createSurgicalGuide,
   createTitaniumImplant,
   disposeObject3D,
@@ -15,15 +16,38 @@ import "./Implant3D.scss";
 
 /**
  * Interactive 3D treatment stages simulator controlled by activeStep (0..3).
- * Users can freely orbit/rotate the 3D scene on 360° with mouse or touch.
+ * Shows real multi-layered jaw anatomy (ivory bone + pink gingiva) and lets users
+ * rotate 360 deg and zoom via wheel / pinch / buttons on desktop, tablet & mobile.
  */
 const TreatmentSteps3D = ({ activeStep }) => {
   const mountRef = useRef(null);
   const stepRef = useRef(activeStep);
+  const cameraRef = useRef(null);
+  const controlsRef = useRef(null);
 
   useEffect(() => {
     stepRef.current = activeStep;
   }, [activeStep]);
+
+  const zoomCamera = (factor) => {
+    const camera = cameraRef.current;
+    const controls = controlsRef.current;
+    if (!camera || !controls) return;
+    const offset = camera.position.clone().sub(controls.target);
+    const nextDist = THREE.MathUtils.clamp(offset.length() * factor, 2.5, 6.8);
+    offset.setLength(nextDist);
+    camera.position.copy(controls.target).add(offset);
+    controls.update();
+  };
+
+  const resetCamera = () => {
+    const camera = cameraRef.current;
+    const controls = controlsRef.current;
+    if (!camera || !controls) return;
+    camera.position.set(1.65, 1.15, 4.45);
+    controls.target.set(0, -0.05, 0);
+    controls.update();
+  };
 
   useEffect(() => {
     const container = mountRef.current;
@@ -36,7 +60,8 @@ const TreatmentSteps3D = ({ activeStep }) => {
       0.1,
       60
     );
-    camera.position.set(1.55, 1.05, 4.45);
+    camera.position.set(1.65, 1.15, 4.45);
+    cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -52,34 +77,31 @@ const TreatmentSteps3D = ({ activeStep }) => {
 
     setupDentalLighting(scene);
 
-    // Master stage pivot
     const stageGroup = new THREE.Group();
-    stageGroup.position.y = 0.05;
+    stageGroup.position.y = 0.04;
     scene.add(stageGroup);
 
-    // Shared translucent jaw bone segment across all stages
-    const jawBone = createJawBoneBed();
-    jawBone.position.y = -0.18;
-    stageGroup.add(jawBone);
+    // Distinct multi-layered jaw anatomy: beige bone below (y -1.5..0), coral-pink gingiva above (y 0..0.28)
+    const jawAnatomy = createJawAnatomy();
+    stageGroup.add(jawAnatomy);
 
-    // --- Stage 0: CBCT Diagnostic Tooth + Scanning Plane ---
+    // --- Stage 0: 3D CBCT Diagnostics (Natural Tooth + Roots + Root Canals inside Bone & Gingiva) ---
     const step0Group = new THREE.Group();
     const diagTooth = createDiagnosticTooth();
-    diagTooth.position.y = -0.15;
     step0Group.add(diagTooth);
 
-    const scanRingGeo = new THREE.RingGeometry(0.68, 0.74, 48);
+    const scanRingGeo = new THREE.RingGeometry(0.76, 0.84, 52);
     const scanRingMat = new THREE.MeshBasicMaterial({
       color: 0x5ef2b8,
       side: THREE.DoubleSide,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.9,
     });
     const scanPlane = new THREE.Mesh(scanRingGeo, scanRingMat);
     scanPlane.rotation.x = Math.PI / 2;
     step0Group.add(scanPlane);
 
-    const scanDiscGeo = new THREE.CircleGeometry(0.68, 48);
+    const scanDiscGeo = new THREE.CircleGeometry(0.76, 52);
     const scanDiscMat = new THREE.MeshBasicMaterial({
       color: 0x5ef2b8,
       side: THREE.DoubleSide,
@@ -92,58 +114,57 @@ const TreatmentSteps3D = ({ activeStep }) => {
     step0Group.add(scanDisc);
     stageGroup.add(step0Group);
 
-    // --- Stage 1: 3D AI Plan (Wireframe crown + 90.0° laser axis + target cylinder) ---
+    // --- Stage 1: 3D Digital Plan (Wireframe AI Crown + 90.0 deg Axis + Planned Implant Silhouette inside Bone) ---
     const step1Group = new THREE.Group();
     const holoCrown = createAnatomicalCrown({ wireframe: true });
-    holoCrown.position.y = 0.25;
+    holoCrown.position.y = 0.34;
     step1Group.add(holoCrown);
 
-    const axisGeo = new THREE.CylinderGeometry(0.015, 0.015, 2.75, 16);
+    const axisGeo = new THREE.CylinderGeometry(0.015, 0.015, 2.85, 16);
     const axisMat = new THREE.MeshBasicMaterial({
       color: 0x5ef2b8,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.92,
     });
     const axisLine = new THREE.Mesh(axisGeo, axisMat);
-    axisLine.position.y = -0.15;
+    axisLine.position.y = -0.1;
     step1Group.add(axisLine);
 
-    const trajGeo = new THREE.CylinderGeometry(0.27, 0.16, 1.32, 24, 1, true);
+    const trajGeo = new THREE.CylinderGeometry(0.28, 0.14, 1.32, 24, 1, true);
     const trajWire = new THREE.WireframeGeometry(trajGeo);
     const trajMat = new THREE.LineBasicMaterial({
       color: 0x5ef2b8,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.78,
     });
     const trajMesh = new THREE.LineSegments(trajWire, trajMat);
-    trajMesh.position.y = -0.78;
+    trajMesh.position.y = -0.68;
     step1Group.add(trajMesh);
 
-    const targetRingGeo = new THREE.TorusGeometry(0.45, 0.016, 10, 48);
+    const targetRingGeo = new THREE.TorusGeometry(0.46, 0.016, 10, 48);
     const targetRing = new THREE.Mesh(targetRingGeo, axisMat);
     targetRing.rotation.x = Math.PI / 2;
-    targetRing.position.y = 0.02;
+    targetRing.position.y = 0.28;
     step1Group.add(targetRing);
     stageGroup.add(step1Group);
 
-    // --- Stage 2: Guided Implantation (3D Guide + Screwing Titanium Implant) ---
+    // --- Stage 2: Guided Implantation (3D Template over Gingiva + Titanium Implant threading into Bone) ---
     const step2Group = new THREE.Group();
     const surgicalGuide = createSurgicalGuide();
-    surgicalGuide.position.y = 0.18;
     step2Group.add(surgicalGuide);
 
     const drivingImplant = createTitaniumImplant();
     step2Group.add(drivingImplant);
     stageGroup.add(step2Group);
 
-    // --- Stage 3: Final Crown Fixation (Seated Implant + Abutment + Zirconia Crown) ---
+    // --- Stage 3: Crown Fixation (Seated Implant in Bone -> Abutment through Gingiva -> Zirconia Crown) ---
     const step3Group = new THREE.Group();
     const seatedImplant = createTitaniumImplant();
-    seatedImplant.position.y = -0.18;
+    seatedImplant.position.y = 0.0;
     step3Group.add(seatedImplant);
 
     const abutment = createAbutment();
-    abutment.position.y = 0.02;
+    abutment.position.y = 0.0;
     step3Group.add(abutment);
 
     const finalCrown = createAnatomicalCrown({ wireframe: false });
@@ -151,13 +172,17 @@ const TreatmentSteps3D = ({ activeStep }) => {
     stageGroup.add(step3Group);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableZoom = false;
+    controls.enableZoom = true;
+    controls.zoomSpeed = 0.85;
+    controls.minDistance = 2.5;
+    controls.maxDistance = 6.8;
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 1.2;
+    controls.autoRotateSpeed = 1.15;
     controls.target.set(0, -0.05, 0);
+    controlsRef.current = controls;
 
     let isVisible = true;
     let observer;
@@ -203,22 +228,22 @@ const TreatmentSteps3D = ({ activeStep }) => {
       step3Group.visible = s === 3;
 
       if (s === 0) {
-        const sweepY = Math.sin(t * 1.8) * 0.95;
+        const sweepY = -0.15 + Math.sin(t * 1.75) * 1.15;
         scanPlane.position.y = sweepY;
         scanDisc.position.y = sweepY;
       } else if (s === 1) {
-        holoCrown.position.y = 0.28 + Math.sin(t * 2) * 0.05;
+        holoCrown.position.y = 0.36 + Math.sin(t * 2) * 0.05;
         holoCrown.rotation.y = t * 0.4;
-        targetRing.scale.setScalar(1 + Math.sin(t * 2.5) * 0.06);
+        targetRing.scale.setScalar(1 + Math.sin(t * 2.4) * 0.06);
       } else if (s === 2) {
-        // Implant smoothly threads up/down with synchronized rotation
-        const cycle = (Math.sin(t * 1.4) + 1) * 0.5; // 0..1
-        drivingImplant.position.y = THREE.MathUtils.lerp(0.62, -0.18, cycle);
-        drivingImplant.rotation.y = cycle * Math.PI * 3.5;
+        // Implant threads smoothly down through guide sleeve into bone bed (y = 0.0 crest)
+        const cycle = (Math.sin(t * 1.35) + 1) * 0.5;
+        drivingImplant.position.y = THREE.MathUtils.lerp(1.15, 0.0, cycle);
+        drivingImplant.rotation.y = cycle * Math.PI * 4.0;
       } else if (s === 3) {
-        // Crown gently descends onto abutment and seats cleanly
-        const seatCycle = Math.min(1, (Math.sin(t * 1.5 - 0.5) + 1) * 0.55);
-        finalCrown.position.y = THREE.MathUtils.lerp(0.76, 0.34, seatCycle);
+        // Crown descends cleanly onto abutment & seats flush at pink gingiva margin (y = 0.27)
+        const seatCycle = Math.min(1, (Math.sin(t * 1.45 - 0.4) + 1) * 0.55);
+        finalCrown.position.y = THREE.MathUtils.lerp(0.86, 0.27, seatCycle);
       }
 
       controls.update();
@@ -246,11 +271,50 @@ const TreatmentSteps3D = ({ activeStep }) => {
       <div
         ref={mountRef}
         className="implant-3d-canvas-wrap steps-3d-viewport"
-        aria-label="Интерактивная 3D-модель этапа лечения — покрутите мышкой или пальцем"
+        aria-label="Интерактивная 3D-модель этапа лечения — покрутите и приблизьте"
       />
+      <div className="steps-3d-legend" aria-hidden="true">
+        <span className="legend-item">
+          <span className="legend-dot legend-dot--gum" />
+          Десна
+        </span>
+        <span className="legend-item">
+          <span className="legend-dot legend-dot--bone" />
+          Кость
+        </span>
+      </div>
+      <div className="steps-3d-controls">
+        <button
+          type="button"
+          className="mini-3d-btn"
+          onClick={() => zoomCamera(0.82)}
+          aria-label="Приблизить 3D-модель"
+          title="Приблизить"
+        >
+          <FiPlus />
+        </button>
+        <button
+          type="button"
+          className="mini-3d-btn"
+          onClick={() => zoomCamera(1.22)}
+          aria-label="Отдалить 3D-модель"
+          title="Отдалить"
+        >
+          <FiMinus />
+        </button>
+        <button
+          type="button"
+          className="mini-3d-btn"
+          onClick={resetCamera}
+          aria-label="Сбросить ракурс"
+          title="Сбросить ракурс"
+        >
+          <FiRotateCcw />
+        </button>
+      </div>
       <div className="steps-3d-hint">
         <span className="steps-3d-hint-dot" />
-        <span>Покрутите 3D-модель на 360°</span>
+        <span>360° вращение · зум колёсиком</span>
       </div>
     </div>
   );

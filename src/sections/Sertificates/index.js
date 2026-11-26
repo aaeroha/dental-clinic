@@ -103,7 +103,8 @@ const Sertificates = () => {
             }}
             autoplay={{
               delay: 3000,
-              disableOnInteraction: true,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
             }}
             className="sertificates-swiper"
           >

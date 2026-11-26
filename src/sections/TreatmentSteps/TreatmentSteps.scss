@@ -56,21 +56,21 @@
 .steps-section {
   .scrolly-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    gap: 40px;
+    grid-template-columns: minmax(0, 1.42fr) minmax(0, 0.82fr);
+    gap: 36px;
     align-items: start;
   }
 
   .scrolly-sticky-col {
     position: sticky;
-    top: 108px;
+    top: clamp(96px, calc(50vh - 260px), 340px);
   }
 
   .scrolly-stage {
     background: var(--bg-hero);
     border-radius: 28px;
     padding: 0;
-    height: 430px;
+    height: 520px;
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(255, 255, 255, 0.16);
@@ -195,26 +195,6 @@
     font-weight: 600;
   }
 
-  .stage-guarantee-floating {
-    position: absolute;
-    right: 16px;
-    bottom: 42px;
-    z-index: 6;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border-radius: 999px;
-    background: rgba(15, 18, 42, 0.72);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(94, 242, 184, 0.35);
-    color: #5ef2b8;
-    font-size: 12px;
-    font-weight: 600;
-    pointer-events: none;
-  }
-
   .scrolly-progress {
     position: absolute;
     left: 0;
@@ -251,8 +231,9 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 28px;
-    padding: 34px 30px;
-    height: 430px;
+    padding: 30px 26px;
+    min-height: 460px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -359,7 +340,7 @@
     }
 
     .scrolly-stage {
-      height: 280px;
+      height: 340px;
     }
 
     .scrolly-visuals {

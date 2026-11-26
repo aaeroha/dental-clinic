@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { FiPlus, FiMinus, FiRotateCcw } from "react-icons/fi";
 import {
   createAbutment,
   createAnatomicalCrown,
@@ -12,10 +13,33 @@ import "./Implant3D.scss";
 
 /**
  * Interactive 3D Implant + Abutment + Crown showcase for the Hero Banner.
- * Reacts gently to cursor movement and supports direct 360° drag rotation.
+ * Supports 360 deg drag rotation, mouse-wheel zoom inside the viewport,
+ * cursor-follow tilt, and mobile-friendly +/- zoom controls.
  */
 const BannerImplant3D = () => {
   const mountRef = useRef(null);
+  const cameraRef = useRef(null);
+  const controlsRef = useRef(null);
+
+  const zoomCamera = (factor) => {
+    const camera = cameraRef.current;
+    const controls = controlsRef.current;
+    if (!camera || !controls) return;
+    const offset = camera.position.clone().sub(controls.target);
+    const nextDist = THREE.MathUtils.clamp(offset.length() * factor, 2.3, 6.4);
+    offset.setLength(nextDist);
+    camera.position.copy(controls.target).add(offset);
+    controls.update();
+  };
+
+  const resetCamera = () => {
+    const camera = cameraRef.current;
+    const controls = controlsRef.current;
+    if (!camera || !controls) return;
+    camera.position.set(0.55, 0.42, 4.15);
+    controls.target.set(0, 0.06, 0);
+    controls.update();
+  };
 
   useEffect(() => {
     const container = mountRef.current;
@@ -28,7 +52,8 @@ const BannerImplant3D = () => {
       0.1,
       50
     );
-    camera.position.set(0.55, 0.45, 4.35);
+    camera.position.set(0.55, 0.42, 4.15);
+    cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -44,26 +69,24 @@ const BannerImplant3D = () => {
 
     setupDentalLighting(scene);
 
-    // Master assembly group positioned centrally
     const assembly = new THREE.Group();
-    assembly.position.y = -0.1;
-    assembly.rotation.z = -0.14;
+    assembly.position.y = -0.08;
+    assembly.rotation.z = -0.12;
     scene.add(assembly);
 
     const implant = createTitaniumImplant();
-    implant.position.y = -0.2;
+    implant.position.y = 0.0;
     assembly.add(implant);
 
     const abutment = createAbutment();
-    abutment.position.y = 0.02;
+    abutment.position.y = 0.0;
     assembly.add(abutment);
 
     const crown = createAnatomicalCrown({ wireframe: false });
-    crown.position.y = 0.44;
+    crown.position.y = 0.34;
     assembly.add(crown);
 
-    // Subtle precision orbital ring around the implant neck
-    const ringGeo = new THREE.TorusGeometry(0.76, 0.008, 12, 64);
+    const ringGeo = new THREE.TorusGeometry(0.76, 0.009, 12, 64);
     const ringMat = new THREE.MeshBasicMaterial({
       color: 0x5ef2b8,
       transparent: true,
@@ -71,24 +94,28 @@ const BannerImplant3D = () => {
     });
     const scanRing = new THREE.Mesh(ringGeo, ringMat);
     scanRing.rotation.x = Math.PI / 2.25;
-    scanRing.position.y = 0.05;
+    scanRing.position.y = 0.04;
     assembly.add(scanRing);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableZoom = false;
+    controls.enableZoom = true;
+    controls.zoomSpeed = 0.85;
+    controls.minDistance = 2.3;
+    controls.maxDistance = 6.4;
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 1.6;
-    controls.target.set(0, 0.05, 0);
+    controls.autoRotateSpeed = 1.5;
+    controls.target.set(0, 0.06, 0);
+    controlsRef.current = controls;
 
     let pointerX = 0;
     let pointerY = 0;
     const onPointerMove = (e) => {
       const nx = (e.clientX / Math.max(1, window.innerWidth)) * 2 - 1;
       const ny = (e.clientY / Math.max(1, window.innerHeight)) * 2 - 1;
-      pointerX = nx * 0.22;
+      pointerX = nx * 0.2;
       pointerY = ny * 0.14;
     };
     window.addEventListener("pointermove", onPointerMove, { passive: true });
@@ -129,16 +156,14 @@ const BannerImplant3D = () => {
       if (!isVisible) return;
 
       const t = clock.getElapsedTime();
-      // Gentle exploded-view hover showing surgical implant -> abutment -> zirconia crown
-      const lift = (Math.sin(t * 1.45) + 1) * 0.5;
-      crown.position.y = 0.4 + lift * 0.14;
+      const lift = (Math.sin(t * 1.4) + 1) * 0.5;
+      crown.position.y = 0.34 + lift * 0.14;
       abutment.position.y = 0.01 + lift * 0.04;
       scanRing.rotation.z = t * 0.45;
       scanRing.scale.setScalar(1 + Math.sin(t * 2) * 0.03);
 
-      // Subtle mouse-follow tilt layered cleanly on the assembly
       assembly.rotation.x += (pointerY - assembly.rotation.x) * 0.06;
-      assembly.rotation.z += (-0.14 - pointerX * 0.65 - assembly.rotation.z) * 0.06;
+      assembly.rotation.z += (-0.12 - pointerX * 0.6 - assembly.rotation.z) * 0.06;
 
       controls.update();
       renderer.render(scene, camera);
@@ -163,16 +188,41 @@ const BannerImplant3D = () => {
 
   return (
     <div className="banner-3d-card">
-      <div className="banner-3d-badge">
-        <span className="banner-3d-dot" />
-        <span>3D-макет · Имплант</span>
-      </div>
       <div
         ref={mountRef}
         className="implant-3d-canvas-wrap banner-3d-viewport"
-        aria-label="Интерактивная 3D-модель зубного имплантата с коронкой — покрутите мышкой"
+        aria-label="Интерактивная 3D-модель имплантата с коронкой — покрутите и приблизьте"
       />
-      <div className="banner-3d-hint">Покрутите 360°</div>
+      <div className="banner-3d-controls">
+        <button
+          type="button"
+          className="mini-3d-btn"
+          onClick={() => zoomCamera(0.82)}
+          aria-label="Приблизить 3D-модель"
+          title="Приблизить"
+        >
+          <FiPlus />
+        </button>
+        <button
+          type="button"
+          className="mini-3d-btn"
+          onClick={() => zoomCamera(1.22)}
+          aria-label="Отдалить 3D-модель"
+          title="Отдалить"
+        >
+          <FiMinus />
+        </button>
+        <button
+          type="button"
+          className="mini-3d-btn"
+          onClick={resetCamera}
+          aria-label="Сбросить ракурс"
+          title="Сбросить ракурс"
+        >
+          <FiRotateCcw />
+        </button>
+      </div>
+      <div className="banner-3d-hint">360° · зум колёсиком</div>
     </div>
   );
 };

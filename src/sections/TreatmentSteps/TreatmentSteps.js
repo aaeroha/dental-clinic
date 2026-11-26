@@ -2,7 +2,7 @@ import React, { Suspense, lazy, useEffect, useRef, useState } from "react";
 import "./TreatmentSteps.scss";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import Reveal from "../../components/Reveal/Reveal";
-import { FiCheckCircle, FiShield } from "react-icons/fi";
+import { FiCheckCircle } from "react-icons/fi";
 
 const TreatmentSteps3D = lazy(() =>
   import("../../components/Implant3D/TreatmentSteps3D")
@@ -55,13 +55,6 @@ function StepScene({ activeStep }) {
         >
           <TreatmentSteps3D activeStep={activeStep} />
         </Suspense>
-
-        {activeStep === 3 && (
-          <div className="stage-guarantee-floating">
-            <FiShield />
-            <span>Плановое наблюдение и контроль прикуса</span>
-          </div>
-        )}
 
         <div className="scrolly-progress">
           {STEPS.map((s, idx) => (
