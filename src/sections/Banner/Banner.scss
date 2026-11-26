@@ -40,10 +40,23 @@
   overflow: hidden;
   contain: layout style;
 
-  .container {
-    max-width: 1360px !important;
-    margin-left: auto;
-    margin-right: auto;
+  @media (min-width: 992px) {
+    .row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: clamp(28px, 3.4vw, 56px);
+      margin-left: 0;
+      margin-right: 0;
+
+      > .col-lg-5,
+      > .col-lg-7 {
+        width: auto;
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+      }
+    }
   }
 
   .banner-tech-backdrop {
@@ -253,9 +266,9 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  gap: 28px;
+  gap: clamp(24px, 3vw, 48px);
 
   .banner-doctor-col {
     position: relative;
