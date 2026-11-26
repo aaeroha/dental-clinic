@@ -222,7 +222,6 @@ const BannerImplant3D = () => {
           <FiRotateCcw />
         </button>
       </div>
-      <div className="banner-3d-hint">360° · зум колёсиком</div>
     </div>
   );
 };

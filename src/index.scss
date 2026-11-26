@@ -10,7 +10,7 @@ html {
   html,
   body,
   body * {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><g transform='rotate(144 18 18)'><path d='M10.8 4.2 C8.4 4.2 7.2 7.8 8.4 12.2 C9.3 15 11.8 16.4 18 16.4 C24.2 16.4 26.7 15 27.6 12.2 C28.8 7.8 27.6 4.2 25.2 4.2 C22.8 4.2 20.8 6.0 18 6.0 C15.2 6.0 13.2 4.2 10.8 4.2 Z' fill='%23ffffff' stroke='%23181945' stroke-width='1.8' stroke-linejoin='round'/><rect x='14.4' y='16.4' width='7.2' height='3.0' rx='1.2' fill='%235ef2b8' stroke='%23181945' stroke-width='1.4'/><path d='M14.2 19.6 L21.8 19.6 L19.7 31.8 Q18 33.8 16.3 31.8 Z' fill='%237c66f0' stroke='%23181945' stroke-width='1.4'/><path d='M13.6 22.8 L22.4 21.4 M14.1 26.0 L21.9 24.6 M14.8 29.0 L21.2 27.8' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'/></g></svg>") 5 3, auto;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g transform='rotate(142 16 16)'><path d='M9.4 3.6 C7.2 3.6 6.2 6.8 7.2 10.6 C8.1 13.2 10.4 14.4 16 14.4 C21.6 14.4 23.9 13.2 24.8 10.6 C25.8 6.8 24.8 3.6 22.6 3.6 C20.4 3.6 18.6 5.2 16 5.2 C13.4 5.2 11.6 3.6 9.4 3.6 Z' fill='%23ffffff' stroke='%23181945' stroke-width='1.7' stroke-linejoin='round'/><rect x='12.8' y='14.4' width='6.4' height='2.6' rx='1' fill='%235ef2b8' stroke='%23181945' stroke-width='1.3'/><path d='M12.6 17.2 L19.4 17.2 L17.5 28.2 Q16 30.2 14.5 28.2 Z' fill='%237c66f0' stroke='%23181945' stroke-width='1.3'/><path d='M12.1 20.0 L19.9 18.8 M12.5 22.9 L19.5 21.7 M13.1 25.7 L18.9 24.5' stroke='%23ffffff' stroke-width='1.4' stroke-linecap='round'/></g></svg>") 7 5, auto;
   }
 
   input,
@@ -34,8 +34,10 @@ html {
   .swiper-button-next,
   .swiper-pagination-bullet,
   .ba-expand-btn,
+  .implant-3d-canvas-wrap,
+  .implant-3d-canvas-wrap *,
   summary {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'><g transform='rotate(144 18 18)'><path d='M10.8 4.2 C8.4 4.2 7.2 7.8 8.4 12.2 C9.3 15 11.8 16.4 18 16.4 C24.2 16.4 26.7 15 27.6 12.2 C28.8 7.8 27.6 4.2 25.2 4.2 C22.8 4.2 20.8 6.0 18 6.0 C15.2 6.0 13.2 4.2 10.8 4.2 Z' fill='%235ef2b8' stroke='%23181945' stroke-width='1.8' stroke-linejoin='round'/><rect x='14.4' y='16.4' width='7.2' height='3.0' rx='1.2' fill='%23ffffff' stroke='%23181945' stroke-width='1.4'/><path d='M14.2 19.6 L21.8 19.6 L19.7 31.8 Q18 33.8 16.3 31.8 Z' fill='%23583FBC' stroke='%23181945' stroke-width='1.4'/><path d='M13.6 22.8 L22.4 21.4 M14.1 26.0 L21.9 24.6 M14.8 29.0 L21.2 27.8' stroke='%235ef2b8' stroke-width='1.6' stroke-linecap='round'/></g></svg>") 5 3, pointer !important;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><g transform='rotate(142 16 16)'><path d='M9.4 3.6 C7.2 3.6 6.2 6.8 7.2 10.6 C8.1 13.2 10.4 14.4 16 14.4 C21.6 14.4 23.9 13.2 24.8 10.6 C25.8 6.8 24.8 3.6 22.6 3.6 C20.4 3.6 18.6 5.2 16 5.2 C13.4 5.2 11.6 3.6 9.4 3.6 Z' fill='%235ef2b8' stroke='%23181945' stroke-width='1.7' stroke-linejoin='round'/><rect x='12.8' y='14.4' width='6.4' height='2.6' rx='1' fill='%23ffffff' stroke='%23181945' stroke-width='1.3'/><path d='M12.6 17.2 L19.4 17.2 L17.5 28.2 Q16 30.2 14.5 28.2 Z' fill='%23583FBC' stroke='%23181945' stroke-width='1.3'/><path d='M12.1 20.0 L19.9 18.8 M12.5 22.9 L19.5 21.7 M13.1 25.7 L18.9 24.5' stroke='%235ef2b8' stroke-width='1.5' stroke-linecap='round'/></g></svg>") 7 5, pointer !important;
   }
 }
 
@@ -136,6 +138,10 @@ h6 {
   text-decoration: none;
 }
 
+.container {
+  max-width: min(1760px, calc(100% - 40px));
+}
+
 .section-bg {
   background: var(--bg-hero);
   box-shadow: var(--shadow-lg);
@@ -144,13 +150,15 @@ h6 {
 .section-common {
   color: var(--text-on-accent);
   border-radius: 36px;
-  max-width: 1560px;
-  width: calc(100% - 48px);
+  max-width: min(1820px, calc(100% - 40px));
+  width: calc(100% - 40px);
   margin-left: auto;
   margin-right: auto;
 
   .container {
-    max-width: 1460px;
+    max-width: 100%;
+    padding-left: 36px;
+    padding-right: 36px;
   }
 }
 
@@ -189,11 +197,20 @@ h6 {
 }
 
 @media (max-width: 767px) {
+  .container {
+    max-width: 100%;
+  }
+
   .section-common {
     width: calc(100% - 24px);
     margin-left: auto;
     margin-right: auto;
     border-radius: 24px;
+
+    .container {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
   }
 
   p {

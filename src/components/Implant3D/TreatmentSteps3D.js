@@ -312,10 +312,6 @@ const TreatmentSteps3D = ({ activeStep }) => {
           <FiRotateCcw />
         </button>
       </div>
-      <div className="steps-3d-hint">
-        <span className="steps-3d-hint-dot" />
-        <span>360° вращение · зум колёсиком</span>
-      </div>
     </div>
   );
 };

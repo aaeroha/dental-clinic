@@ -109,7 +109,7 @@ const Banner = () => {
     >
       <div className="container">
         <div className="row align-items-stretch">
-          <div className="col-lg-6 d-flex">
+          <div className="col-lg-5 d-flex">
             <div className="banner-text">
               <div className="banner-text-main">
                 <div className="hero-badges">
@@ -192,50 +192,52 @@ const Banner = () => {
             </div>
           </div>
 
-          <div className="col-lg-6 d-flex">
+          <div className="col-lg-7 d-flex">
             <div className="banner-img-area">
-              <div className="banner-img">
-                <picture>
-                  <source
-                    media="(max-width: 767px)"
-                    srcSet={bannerImgMobile}
-                    type="image/webp"
-                  />
-                  <source srcSet={bannerImgDesktop} type="image/webp" />
-                  <img
-                    src={bannerImgFallback}
-                    alt="Стоматолог-хирург и имплантолог Боченков Роман Викторович"
-                    width="700"
-                    height="899"
-                    fetchPriority="high"
-                    decoding="async"
-                  />
-                </picture>
-              </div>
-              <div className="info-box speech-bubble">
-                <svg
-                  className="speech-tail"
-                  viewBox="0 0 34 22"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M6,22 C8,12 4,4 1,1 C10,3 20,10 28,22 Z"
-                    className="speech-tail-fill"
-                  />
-                  <path
-                    d="M6,21 C8,12 4,4 1,1 C10,3 20,10 28,21"
-                    className="speech-tail-stroke"
-                    fill="none"
-                  />
-                </svg>
-                <div className="info-text">
-                  <p>20 лет я совершенствуюсь и развиваюсь, чтобы лечить!</p>
-                </div>
-              </div>
-
               <Suspense fallback={null}>
                 <BannerImplant3D />
               </Suspense>
+
+              <div className="banner-doctor-col">
+                <div className="banner-img">
+                  <picture>
+                    <source
+                      media="(max-width: 767px)"
+                      srcSet={bannerImgMobile}
+                      type="image/webp"
+                    />
+                    <source srcSet={bannerImgDesktop} type="image/webp" />
+                    <img
+                      src={bannerImgFallback}
+                      alt="Стоматолог-хирург и имплантолог Боченков Роман Викторович"
+                      width="700"
+                      height="899"
+                      fetchPriority="high"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
+                <div className="info-box speech-bubble">
+                  <svg
+                    className="speech-tail"
+                    viewBox="0 0 34 22"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6,22 C8,12 4,4 1,1 C10,3 20,10 28,22 Z"
+                      className="speech-tail-fill"
+                    />
+                    <path
+                      d="M6,21 C8,12 4,4 1,1 C10,3 20,10 28,21"
+                      className="speech-tail-stroke"
+                      fill="none"
+                    />
+                  </svg>
+                  <div className="info-text">
+                    <p>20 лет я совершенствуюсь и развиваюсь, чтобы лечить!</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

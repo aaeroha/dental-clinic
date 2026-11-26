@@ -35,11 +35,10 @@
 }
 
 .banner-3d-card {
-  position: absolute;
-  left: -4%;
-  top: 4%;
-  width: 264px;
-  height: 305px;
+  position: relative;
+  width: 268px;
+  height: 320px;
+  flex-shrink: 0;
   z-index: 3;
   border-radius: 26px;
   background: rgba(15, 19, 44, 0.56);
@@ -51,7 +50,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  align-self: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
     border-color: rgba(94, 242, 184, 0.7);
@@ -74,23 +74,6 @@
   gap: 5px;
 }
 
-.banner-3d-hint {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 4;
-  padding: 4px 11px;
-  border-radius: 999px;
-  background: rgba(11, 14, 34, 0.68);
-  border: 1px solid rgba(94, 242, 184, 0.32);
-  color: #5ef2b8;
-  font-size: 11px;
-  font-weight: 700;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
 .steps-3d-wrapper {
   position: relative;
   width: 100%;
@@ -105,7 +88,7 @@
 .steps-3d-legend {
   position: absolute;
   left: 18px;
-  bottom: 50px;
+  bottom: 14px;
   z-index: 6;
   display: inline-flex;
   align-items: center;
@@ -133,13 +116,13 @@
     border-radius: 50%;
 
     &--gum {
-      background: #e86c8a;
-      box-shadow: 0 0 6px rgba(232, 108, 138, 0.7);
+      background: #ee6c8c;
+      box-shadow: 0 0 6px rgba(238, 108, 138, 0.75);
     }
 
     &--bone {
-      background: #ebd7b2;
-      box-shadow: 0 0 6px rgba(235, 215, 178, 0.7);
+      background: #f2d9aa;
+      box-shadow: 0 0 6px rgba(242, 217, 170, 0.75);
     }
   }
 }
@@ -153,48 +136,18 @@
   gap: 6px;
 }
 
-.steps-3d-hint {
-  position: absolute;
-  left: 18px;
-  bottom: 14px;
-  z-index: 6;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(15, 18, 42, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 12px;
-  font-weight: 600;
-  pointer-events: none;
-}
-
-.steps-3d-hint-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #5ef2b8;
-  box-shadow: 0 0 8px #5ef2b8;
-}
-
 @media (max-width: 1199px) {
   .banner-3d-card {
-    left: 0;
-    width: 224px;
-    height: 260px;
+    width: 220px;
+    height: 270px;
   }
 }
 
 @media (max-width: 991px) {
   .banner-3d-card {
-    left: 2%;
-    top: 2%;
-    width: 205px;
-    height: 240px;
+    width: min(290px, 86%);
+    height: 245px;
+    margin: 0 auto 14px;
   }
 
   .steps-3d-legend {
@@ -205,20 +158,5 @@
   .steps-3d-controls {
     right: 12px;
     bottom: 12px;
-  }
-
-  .steps-3d-hint {
-    display: none;
-  }
-}
-
-@media (max-width: 575px) {
-  .banner-3d-card {
-    position: relative;
-    left: auto;
-    top: auto;
-    margin: 14px auto 0;
-    width: min(300px, 92%);
-    height: 230px;
   }
 }
