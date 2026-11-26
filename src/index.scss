@@ -111,10 +111,14 @@ h6 {
 .section-common {
   color: var(--text-on-accent);
   border-radius: 36px;
-  max-width: 1320px;
+  max-width: 1560px;
   width: calc(100% - 48px);
   margin-left: auto;
   margin-right: auto;
+
+  .container {
+    max-width: 1460px;
+  }
 }
 
 .section-loader {
