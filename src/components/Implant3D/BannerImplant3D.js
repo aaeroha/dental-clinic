@@ -11,10 +11,11 @@ import {
 } from "./dentalGeometry";
 import "./Implant3D.scss";
 
+const DEFAULT_CAM = { x: 0.72, y: 0.48, z: 5.15 };
+
 /**
- * Interactive 3D Implant + Abutment + Crown showcase for the Hero Banner.
- * Supports 360 deg drag rotation, mouse-wheel zoom inside the viewport,
- * cursor-follow tilt, and mobile-friendly +/- zoom controls.
+ * Interactive 3D Implant + Platform-Switching Abutment + Zirconia Crown showcase for the Hero Banner.
+ * Sized cleanly so the full assembly breathes comfortably inside the frame with wheel zoom & drag.
  */
 const BannerImplant3D = () => {
   const mountRef = useRef(null);
@@ -26,7 +27,7 @@ const BannerImplant3D = () => {
     const controls = controlsRef.current;
     if (!camera || !controls) return;
     const offset = camera.position.clone().sub(controls.target);
-    const nextDist = THREE.MathUtils.clamp(offset.length() * factor, 2.3, 6.4);
+    const nextDist = THREE.MathUtils.clamp(offset.length() * factor, 2.6, 7.2);
     offset.setLength(nextDist);
     camera.position.copy(controls.target).add(offset);
     controls.update();
@@ -36,8 +37,8 @@ const BannerImplant3D = () => {
     const camera = cameraRef.current;
     const controls = controlsRef.current;
     if (!camera || !controls) return;
-    camera.position.set(0.55, 0.42, 4.15);
-    controls.target.set(0, 0.06, 0);
+    camera.position.set(DEFAULT_CAM.x, DEFAULT_CAM.y, DEFAULT_CAM.z);
+    controls.target.set(0, -0.04, 0);
     controls.update();
   };
 
@@ -47,12 +48,12 @@ const BannerImplant3D = () => {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
-      36,
+      34,
       container.clientWidth / Math.max(1, container.clientHeight),
       0.1,
       50
     );
-    camera.position.set(0.55, 0.42, 4.15);
+    camera.position.set(DEFAULT_CAM.x, DEFAULT_CAM.y, DEFAULT_CAM.z);
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({
@@ -64,14 +65,14 @@ const BannerImplant3D = () => {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.16;
     container.appendChild(renderer.domElement);
 
     setupDentalLighting(scene);
 
     const assembly = new THREE.Group();
-    assembly.position.y = -0.08;
-    assembly.rotation.z = -0.12;
+    assembly.position.y = -0.02;
+    assembly.rotation.z = -0.1;
     scene.add(assembly);
 
     const implant = createTitaniumImplant();
@@ -79,18 +80,18 @@ const BannerImplant3D = () => {
     assembly.add(implant);
 
     const abutment = createAbutment();
-    abutment.position.y = 0.0;
+    abutment.position.y = 0.02;
     assembly.add(abutment);
 
     const crown = createAnatomicalCrown({ wireframe: false });
     crown.position.y = 0.34;
     assembly.add(crown);
 
-    const ringGeo = new THREE.TorusGeometry(0.76, 0.009, 12, 64);
+    const ringGeo = new THREE.TorusGeometry(0.74, 0.008, 12, 64);
     const ringMat = new THREE.MeshBasicMaterial({
       color: 0x5ef2b8,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.42,
     });
     const scanRing = new THREE.Mesh(ringGeo, ringMat);
     scanRing.rotation.x = Math.PI / 2.25;
@@ -100,14 +101,14 @@ const BannerImplant3D = () => {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableZoom = true;
     controls.zoomSpeed = 0.85;
-    controls.minDistance = 2.3;
-    controls.maxDistance = 6.4;
+    controls.minDistance = 2.6;
+    controls.maxDistance = 7.2;
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 1.5;
-    controls.target.set(0, 0.06, 0);
+    controls.autoRotateSpeed = 1.45;
+    controls.target.set(0, -0.04, 0);
     controlsRef.current = controls;
 
     let pointerX = 0;
@@ -115,8 +116,8 @@ const BannerImplant3D = () => {
     const onPointerMove = (e) => {
       const nx = (e.clientX / Math.max(1, window.innerWidth)) * 2 - 1;
       const ny = (e.clientY / Math.max(1, window.innerHeight)) * 2 - 1;
-      pointerX = nx * 0.2;
-      pointerY = ny * 0.14;
+      pointerX = nx * 0.18;
+      pointerY = ny * 0.12;
     };
     window.addEventListener("pointermove", onPointerMove, { passive: true });
 
@@ -157,13 +158,14 @@ const BannerImplant3D = () => {
 
       const t = clock.getElapsedTime();
       const lift = (Math.sin(t * 1.4) + 1) * 0.5;
-      crown.position.y = 0.34 + lift * 0.14;
-      abutment.position.y = 0.01 + lift * 0.04;
+      // Subtle CAD separation shows platform-switching hex pin + crown seating on chamfer
+      abutment.position.y = 0.01 + lift * 0.09;
+      crown.position.y = 0.28 + lift * 0.26;
       scanRing.rotation.z = t * 0.45;
       scanRing.scale.setScalar(1 + Math.sin(t * 2) * 0.03);
 
       assembly.rotation.x += (pointerY - assembly.rotation.x) * 0.06;
-      assembly.rotation.z += (-0.12 - pointerX * 0.6 - assembly.rotation.z) * 0.06;
+      assembly.rotation.z += (-0.1 - pointerX * 0.55 - assembly.rotation.z) * 0.06;
 
       controls.update();
       renderer.render(scene, camera);

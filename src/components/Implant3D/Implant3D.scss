@@ -37,7 +37,7 @@
 .banner-3d-card {
   position: relative;
   width: 268px;
-  height: 320px;
+  height: 390px;
   flex-shrink: 0;
   z-index: 3;
   border-radius: 26px;
@@ -85,45 +85,127 @@
   height: 100%;
 }
 
+.steps-callout-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.steps-callout-card {
+  position: absolute;
+  top: 60px;
+  right: 16px;
+  width: min(246px, calc(100% - 32px));
+  z-index: 7;
+  padding: 13px 15px;
+  border-radius: 18px;
+  background: rgba(12, 15, 36, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 3px solid var(--part-color, #5ef2b8);
+  box-shadow: 0 16px 36px rgba(6, 8, 24, 0.52);
+  pointer-events: none;
+  animation: calloutFade 0.2s ease-out;
+
+  .callout-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 6px;
+  }
+
+  .callout-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--part-color, #5ef2b8);
+    box-shadow: 0 0 8px var(--part-color, #5ef2b8);
+    flex-shrink: 0;
+  }
+
+  .callout-metric {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--part-color, #5ef2b8);
+  }
+
+  h4 {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    line-height: 1.25;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 12.2px;
+    line-height: 1.45;
+    margin-bottom: 0;
+  }
+}
+
+@keyframes calloutFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .steps-3d-legend {
   position: absolute;
-  left: 18px;
+  left: 16px;
   bottom: 14px;
   z-index: 6;
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: rgba(15, 18, 42, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 12px;
-  font-weight: 600;
-  pointer-events: none;
+  gap: 6px;
+  max-width: calc(100% - 135px);
 
   .legend-item {
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(15, 18, 42, 0.68);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 11.5px;
+    font-weight: 600;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover,
+    &.is-highlighted {
+      border-color: var(--part-color, #5ef2b8);
+      background: rgba(24, 29, 66, 0.92);
+      color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(8, 10, 28, 0.45);
+    }
   }
 
   .legend-dot {
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-
-    &--gum {
-      background: #ee6c8c;
-      box-shadow: 0 0 6px rgba(238, 108, 138, 0.75);
-    }
-
-    &--bone {
-      background: #f2d9aa;
-      box-shadow: 0 0 6px rgba(242, 217, 170, 0.75);
-    }
+    background: var(--part-color, #5ef2b8);
+    box-shadow: 0 0 6px var(--part-color, #5ef2b8);
+    flex-shrink: 0;
   }
 }
 
@@ -138,25 +220,45 @@
 
 @media (max-width: 1199px) {
   .banner-3d-card {
-    width: 220px;
-    height: 270px;
+    width: 230px;
+    height: 330px;
   }
 }
 
 @media (max-width: 991px) {
   .banner-3d-card {
     width: min(290px, 86%);
-    height: 245px;
+    height: 280px;
     margin: 0 auto 14px;
   }
 
-  .steps-3d-legend {
+  .steps-callout-card {
+    top: auto;
+    bottom: 58px;
+    right: 12px;
     left: 12px;
-    bottom: 12px;
+    width: auto;
+    padding: 10px 12px;
+
+    p {
+      font-size: 11.5px;
+    }
+  }
+
+  .steps-3d-legend {
+    left: 10px;
+    bottom: 10px;
+    gap: 4px;
+    max-width: calc(100% - 122px);
+
+    .legend-item {
+      padding: 4px 8px;
+      font-size: 11px;
+    }
   }
 
   .steps-3d-controls {
-    right: 12px;
-    bottom: 12px;
+    right: 10px;
+    bottom: 10px;
   }
 }

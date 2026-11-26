@@ -1,16 +1,27 @@
 import * as THREE from "three";
 
 /**
+ * Recursively assigns partId metadata for raycasting and highlight feedback.
+ */
+export function tagPart(root, partId) {
+  root.userData.partId = partId;
+  root.traverse((node) => {
+    node.userData.partId = partId;
+  });
+  return root;
+}
+
+/**
  * Sets up balanced studio lighting for titanium, zirconia, pink gingiva, and bone.
  */
 export function setupDentalLighting(scene) {
   const ambient = new THREE.AmbientLight(0xebefff, 1.0);
   scene.add(ambient);
 
-  const hemi = new THREE.HemisphereLight(0xffffff, 0x262d5e, 0.9);
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x262d5e, 0.92);
   scene.add(hemi);
 
-  const keyLight = new THREE.DirectionalLight(0xfffaf0, 1.9);
+  const keyLight = new THREE.DirectionalLight(0xfffaf0, 1.95);
   keyLight.position.set(4, 6, 5);
   scene.add(keyLight);
 
@@ -22,19 +33,21 @@ export function setupDentalLighting(scene) {
   rimMint.position.set(-3, -2, -4);
   scene.add(rimMint);
 
-  const rimViolet = new THREE.PointLight(0x7c66f0, 1.1, 14);
+  const rimViolet = new THREE.PointLight(0x7c66f0, 1.15, 14);
   rimViolet.position.set(3.5, -1.5, 2.5);
   scene.add(rimViolet);
 }
 
 /**
- * Builds a high-detail titanium dental implant with tapered core, collar, and helical threads.
- * Top prosthetic platform rests cleanly at y = 0.
+ * Builds an implantology-accurate Bone-Level Titanium Implant:
+ *  - Polished crestal collar & platform-switching internal hex socket bevel (top at y = 0)
+ *  - Fine cervical micro-threads in the upper cortical bone zone
+ *  - Progressive self-tapping macro-threads down to a rounded apex
  */
 export function createTitaniumImplant({
-  coreColor = 0xcad4e6,
+  coreColor = 0xc9d3e6,
   collarColor = 0x7c66f0,
-  threadColor = 0xeaf0fc,
+  threadColor = 0xeef3fc,
 } = {}) {
   const group = new THREE.Group();
 
@@ -55,85 +68,146 @@ export function createTitaniumImplant({
 
   const collarMat = new THREE.MeshPhysicalMaterial({
     color: collarColor,
-    metalness: 0.72,
+    metalness: 0.74,
     roughness: 0.24,
     clearcoat: 0.55,
   });
 
+  const socketMat = new THREE.MeshPhysicalMaterial({
+    color: 0x3b356b,
+    metalness: 0.8,
+    roughness: 0.3,
+  });
+
+  // Tapered root-form implant body with crestal bevel
   const coreProfile = [
     new THREE.Vector2(0.0, -1.36),
-    new THREE.Vector2(0.08, -1.34),
-    new THREE.Vector2(0.14, -1.24),
-    new THREE.Vector2(0.19, -0.84),
+    new THREE.Vector2(0.075, -1.34),
+    new THREE.Vector2(0.135, -1.24),
+    new THREE.Vector2(0.185, -0.85),
     new THREE.Vector2(0.24, -0.32),
-    new THREE.Vector2(0.265, -0.09),
-    new THREE.Vector2(0.285, -0.04),
-    new THREE.Vector2(0.285, 0.0),
-    new THREE.Vector2(0.22, 0.0),
-    new THREE.Vector2(0.0, 0.0),
+    new THREE.Vector2(0.27, -0.09),
+    new THREE.Vector2(0.285, -0.03),
+    new THREE.Vector2(0.268, 0.0),
+    new THREE.Vector2(0.16, 0.0),
+    new THREE.Vector2(0.15, -0.08),
+    new THREE.Vector2(0.0, -0.08),
   ];
   const coreMesh = new THREE.Mesh(new THREE.LatheGeometry(coreProfile, 40), titaniumMat);
   coreMesh.renderOrder = 1;
   group.add(coreMesh);
 
+  // Polished anodized collar ring (cortical bone interface)
   const collarMesh = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.292, 0.275, 0.09, 40),
+    new THREE.CylinderGeometry(0.288, 0.274, 0.08, 40),
     collarMat
   );
-  collarMesh.position.y = -0.045;
+  collarMesh.position.y = -0.04;
   collarMesh.renderOrder = 1;
   group.add(collarMesh);
 
-  const turns = 6.5;
-  const samples = 150;
-  const points = [];
-  for (let i = 0; i <= samples; i++) {
-    const t = i / samples;
-    const angle = t * Math.PI * 2 * turns;
-    const y = THREE.MathUtils.lerp(-1.24, -0.14, t);
-    const baseRadius = THREE.MathUtils.lerp(0.142, 0.26, Math.pow(t, 0.88));
-    const edgeFade =
-      Math.sin(Math.min(1, t * 8) * (Math.PI / 2)) *
-      Math.sin(Math.min(1, (1 - t) * 8) * (Math.PI / 2));
-    const r = baseRadius + 0.038 * edgeFade;
-    points.push(new THREE.Vector3(Math.cos(angle) * r, y, Math.sin(angle) * r));
+  // Machined internal hex connection ring visible on platform top
+  const hexMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.165, 0.165, 0.04, 6), socketMat);
+  hexMesh.position.y = -0.015;
+  hexMesh.renderOrder = 1;
+  group.add(hexMesh);
+
+  // 1) Upper cervical micro-threads (crestal bone preservation zone: y = -0.10 .. -0.34)
+  const microPoints = [];
+  const microTurns = 3.5;
+  const microSamples = 72;
+  for (let i = 0; i <= microSamples; i++) {
+    const t = i / microSamples;
+    const angle = t * Math.PI * 2 * microTurns;
+    const y = THREE.MathUtils.lerp(-0.34, -0.1, t);
+    const r = THREE.MathUtils.lerp(0.242, 0.274, t) + 0.015;
+    microPoints.push(new THREE.Vector3(Math.cos(angle) * r, y, Math.sin(angle) * r));
   }
-  const threadMesh = new THREE.Mesh(
-    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 144, 0.032, 8, false),
+  const microMesh = new THREE.Mesh(
+    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(microPoints), 68, 0.014, 6, false),
     threadMat
   );
-  threadMesh.renderOrder = 1;
-  group.add(threadMesh);
+  microMesh.renderOrder = 1;
+  group.add(microMesh);
 
-  return group;
+  // 2) Lower progressive self-tapping helical macro-threads (y = -1.24 .. -0.36)
+  const macroPoints = [];
+  const macroTurns = 4.8;
+  const macroSamples = 120;
+  for (let i = 0; i <= macroSamples; i++) {
+    const t = i / macroSamples;
+    const angle = t * Math.PI * 2 * macroTurns;
+    const y = THREE.MathUtils.lerp(-1.24, -0.36, t);
+    const baseRadius = THREE.MathUtils.lerp(0.138, 0.238, Math.pow(t, 0.9));
+    const edgeFade =
+      Math.sin(Math.min(1, t * 7) * (Math.PI / 2)) *
+      Math.sin(Math.min(1, (1 - t) * 7) * (Math.PI / 2));
+    const r = baseRadius + 0.04 * edgeFade;
+    macroPoints.push(new THREE.Vector3(Math.cos(angle) * r, y, Math.sin(angle) * r));
+  }
+  const macroMesh = new THREE.Mesh(
+    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(macroPoints), 116, 0.031, 7, false),
+    threadMat
+  );
+  macroMesh.renderOrder = 1;
+  group.add(macroMesh);
+
+  return tagPart(group, "implant");
 }
 
 /**
- * Builds a precision prosthetic abutment (transmucosal emergence profile from y=0 to y=0.66).
+ * Builds an implantology-accurate Platform-Switching Abutment:
+ *  - Lower internal hex / Morse stem (y = -0.10 .. 0.0) that engages inside the implant
+ *  - Narrower concave S-curve emergence collar (creates thick soft-tissue seal)
+ *  - Chamfered prosthetic shoulder (y = 0.26) & tapered anti-rotation post (y = 0.26 .. 0.62)
  */
 export function createAbutment({ color = 0x5ef2b8 } = {}) {
+  const group = new THREE.Group();
+
   const profile = [
     new THREE.Vector2(0.0, 0.0),
-    new THREE.Vector2(0.21, 0.0),
-    new THREE.Vector2(0.23, 0.06),
-    new THREE.Vector2(0.295, 0.2),
-    new THREE.Vector2(0.305, 0.27),
-    new THREE.Vector2(0.22, 0.31),
-    new THREE.Vector2(0.185, 0.56),
-    new THREE.Vector2(0.14, 0.66),
-    new THREE.Vector2(0.0, 0.66),
+    new THREE.Vector2(0.165, 0.0), // platform switching narrower base
+    new THREE.Vector2(0.195, 0.08),
+    new THREE.Vector2(0.285, 0.21),
+    new THREE.Vector2(0.295, 0.26), // chamfer finish margin
+    new THREE.Vector2(0.225, 0.29),
+    new THREE.Vector2(0.185, 0.54),
+    new THREE.Vector2(0.145, 0.62),
+    new THREE.Vector2(0.0, 0.62),
   ];
-  const mesh = new THREE.Mesh(
-    new THREE.LatheGeometry(profile, 36),
+  const mat = new THREE.MeshPhysicalMaterial({
+    color,
+    metalness: 0.64,
+    roughness: 0.22,
+    clearcoat: 0.6,
+  });
+  const bodyMesh = new THREE.Mesh(new THREE.LatheGeometry(profile, 36), mat);
+  bodyMesh.renderOrder = 1;
+  group.add(bodyMesh);
+
+  // Lower internal hex indexing post (engages inside implant platform)
+  const hexStem = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.125, 0.115, 0.14, 6),
     new THREE.MeshPhysicalMaterial({
-      color,
-      metalness: 0.62,
+      color: 0xb7c4dd,
+      metalness: 0.85,
       roughness: 0.22,
-      clearcoat: 0.6,
     })
   );
-  mesh.renderOrder = 1;
-  return mesh;
+  hexStem.position.y = -0.06;
+  hexStem.renderOrder = 1;
+  group.add(hexStem);
+
+  // Occlusal screw-access channel recess at post top
+  const bore = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.055, 0.055, 0.02, 20),
+    new THREE.MeshBasicMaterial({ color: 0x16243a })
+  );
+  bore.position.y = 0.618;
+  bore.renderOrder = 1;
+  group.add(bore);
+
+  return tagPart(group, "abutment");
 }
 
 /**
@@ -142,7 +216,8 @@ export function createAbutment({ color = 0x5ef2b8 } = {}) {
  */
 export function createAnatomicalCrown({
   wireframe = false,
-  color = 0xf7f9ff,
+  color = 0xf8f6f0,
+  partId = "crown",
 } = {}) {
   const group = new THREE.Group();
 
@@ -167,7 +242,7 @@ export function createAnatomicalCrown({
     let profileRadius;
     if (t < 0.66) {
       const k = t / 0.66;
-      profileRadius = 0.3 + 0.275 * Math.sin(k * (Math.PI / 2));
+      profileRadius = 0.295 + 0.28 * Math.sin(k * (Math.PI / 2));
     } else {
       const k = (t - 0.66) / 0.34;
       profileRadius = 0.575 - 0.085 * k * k;
@@ -217,7 +292,7 @@ export function createAnatomicalCrown({
       opacity: 0.55,
     });
     group.add(new THREE.LineSegments(wireGeo, wireMat));
-    return group;
+    return tagPart(group, partId);
   }
 
   const ceramicMat = new THREE.MeshPhysicalMaterial({
@@ -233,18 +308,18 @@ export function createAnatomicalCrown({
   const mesh = new THREE.Mesh(geo, ceramicMat);
   mesh.renderOrder = 1;
   group.add(mesh);
-  return group;
+  return tagPart(group, partId);
 }
 
 /**
- * Builds an anatomically clear jaw segment with ordered render passes to prevent transparency artifacts:
- *  - Alveolar Bone Block (warm ivory-beige, renderOrder 2, no interior wireframe clutter)
- *  - Soft Gingival Mucosa Saddle (warm coral pink sitting atop bone crest, renderOrder 3)
+ * Builds an anatomically distinct jaw segment and returns separate bone & gum groups
+ * so each layer can be raycasted and highlighted individually.
  */
 export function createJawAnatomy() {
-  const group = new THREE.Group();
+  const root = new THREE.Group();
 
   // 1. Warm Ivory-Beige Alveolar Bone (y = -1.48 .. -0.02)
+  const boneGroup = new THREE.Group();
   const boneShape = new THREE.Shape();
   boneShape.moveTo(-0.88, -1.42);
   boneShape.quadraticCurveTo(-0.96, -0.45, -0.84, -0.02);
@@ -275,9 +350,8 @@ export function createJawAnatomy() {
   });
   const boneMesh = new THREE.Mesh(boneGeo, boneMat);
   boneMesh.renderOrder = 2;
-  group.add(boneMesh);
+  boneGroup.add(boneMesh);
 
-  // Clean subtle bone silhouette outline (outer cortical contour only)
   const boneEdges = new THREE.EdgesGeometry(boneGeo, 35);
   const boneEdgeMat = new THREE.LineBasicMaterial({
     color: 0xffe8be,
@@ -286,9 +360,13 @@ export function createJawAnatomy() {
   });
   const boneEdgeLines = new THREE.LineSegments(boneEdges, boneEdgeMat);
   boneEdgeLines.renderOrder = 2;
-  group.add(boneEdgeLines);
+  boneGroup.add(boneEdgeLines);
 
-  // 2. Coral-Pink Gingiva Saddle sitting cleanly over the bone crest (y = -0.02 .. +0.23)
+  tagPart(boneGroup, "bone");
+  root.add(boneGroup);
+
+  // 2. Coral-Pink Gingiva Saddle sitting cleanly over the bone crest (y = -0.02 .. +0.22)
+  const gumGroup = new THREE.Group();
   const gumShape = new THREE.Shape();
   gumShape.moveTo(-0.92, -0.04);
   gumShape.quadraticCurveTo(-0.92, 0.16, -0.72, 0.22);
@@ -324,14 +402,16 @@ export function createJawAnatomy() {
   });
   const gumMesh = new THREE.Mesh(gumGeo, gumMat);
   gumMesh.renderOrder = 3;
-  group.add(gumMesh);
+  gumGroup.add(gumMesh);
 
-  return group;
+  tagPart(gumGroup, "gum");
+  root.add(gumGroup);
+
+  return { root, boneGroup, gumGroup };
 }
 
 /**
- * Builds a translucent surgical CAD/CAM 3D guide template seated snugly over the gingiva,
- * with a precision machined metallic guide sleeve.
+ * Builds a translucent surgical CAD/CAM 3D guide template seated snugly over the gingiva.
  */
 export function createSurgicalGuide() {
   const group = new THREE.Group();
@@ -359,6 +439,8 @@ export function createSurgicalGuide() {
 
   const resinMat = new THREE.MeshPhysicalMaterial({
     color: 0x64f5d2,
+    emissive: 0x165e4e,
+    emissiveIntensity: 0.18,
     transparent: true,
     opacity: 0.28,
     roughness: 0.14,
@@ -372,6 +454,8 @@ export function createSurgicalGuide() {
 
   const sleeveMat = new THREE.MeshStandardMaterial({
     color: 0x5ef2b8,
+    emissive: 0x124d3b,
+    emissiveIntensity: 0.18,
     metalness: 0.78,
     roughness: 0.2,
     side: THREE.DoubleSide,
@@ -390,25 +474,23 @@ export function createSurgicalGuide() {
   rim.renderOrder = 4;
   group.add(rim);
 
-  return group;
+  return tagPart(group, "guide");
 }
 
 /**
- * Builds a realistic natural tooth with unified cervical root trunk + curved anatomical roots
- * (seated seamlessly through pink gingiva into ivory bone with subtle inner root canals).
+ * Builds a natural two-rooted diagnostic tooth with unified cervical trunk and curved roots.
  */
 export function createDiagnosticTooth() {
   const group = new THREE.Group();
 
-  // Enamel crown seated snugly into pink gingiva margin (cervix starts inside gum at y = 0.18)
   const crown = createAnatomicalCrown({
     wireframe: false,
     color: 0xf4efe3,
+    partId: "tooth",
   });
   crown.position.y = 0.18;
   group.add(crown);
 
-  // Unified solid dentin/cementum root material (opaque & clean -> zero overlapping alpha artifacts)
   const dentinMat = new THREE.MeshPhysicalMaterial({
     color: 0xe6d3a7,
     emissive: 0x3b2d14,
@@ -417,7 +499,6 @@ export function createDiagnosticTooth() {
     metalness: 0.02,
   });
 
-  // Seamless cervical root trunk connecting crown base (y=0.22) down to root furcation (y=-0.22)
   const trunkProfile = [
     new THREE.Vector2(0.0, 0.22),
     new THREE.Vector2(0.28, 0.22),
@@ -431,7 +512,6 @@ export function createDiagnosticTooth() {
   trunkMesh.renderOrder = 1;
   group.add(trunkMesh);
 
-  // Two smoothly curved anatomical roots descending deep into alveolar bone
   [-1, 1].forEach((dir) => {
     const curve = new THREE.CatmullRomCurve3([
       new THREE.Vector3(dir * 0.14, -0.08, 0),
@@ -445,7 +525,6 @@ export function createDiagnosticTooth() {
     const tubeGeo = new THREE.TubeGeometry(curve, segs, 0.115, radial, false);
     const pos = tubeGeo.attributes.position;
 
-    // Taper tube cleanly toward the root apex
     for (let i = 0; i < pos.count; i++) {
       const ringIdx = Math.floor(i / (radial + 1));
       const t = ringIdx / segs;
@@ -463,14 +542,13 @@ export function createDiagnosticTooth() {
     rootMesh.renderOrder = 1;
     group.add(rootMesh);
 
-    // Rounded root apex cap
     const apexMesh = new THREE.Mesh(new THREE.SphereGeometry(0.022, 10, 10), dentinMat);
     apexMesh.position.set(dir * 0.19, -1.18, -dir * 0.02);
     apexMesh.renderOrder = 1;
     group.add(apexMesh);
   });
 
-  return group;
+  return tagPart(group, "tooth");
 }
 
 /**

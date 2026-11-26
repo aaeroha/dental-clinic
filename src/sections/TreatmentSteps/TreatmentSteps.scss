@@ -56,21 +56,21 @@
 .steps-section {
   .scrolly-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.42fr) minmax(0, 0.82fr);
+    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.95fr);
     gap: 36px;
     align-items: start;
   }
 
   .scrolly-sticky-col {
     position: sticky;
-    top: clamp(96px, calc(50vh - 260px), 340px);
+    top: clamp(96px, calc(50vh - 255px), 340px);
   }
 
   .scrolly-stage {
     background: var(--bg-hero);
     border-radius: 28px;
     padding: 0;
-    height: 520px;
+    height: 510px;
     overflow: hidden;
     box-shadow: var(--shadow-lg);
     border: 1px solid rgba(255, 255, 255, 0.16);
@@ -231,8 +231,8 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 28px;
-    padding: 30px 26px;
-    min-height: 460px;
+    padding: 32px 28px;
+    min-height: 510px;
     height: auto;
     display: flex;
     flex-direction: column;
