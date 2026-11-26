@@ -231,12 +231,13 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: 28px;
-    padding: 32px 28px;
+    padding: 36px 32px;
     min-height: 510px;
     height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 20px;
     box-shadow: var(--shadow-sm);
     opacity: 0.58;
     cursor: pointer;
@@ -254,20 +255,21 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 0;
     }
 
     .step-number {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 999px;
       background: var(--accent);
       color: #ffffff;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
+      white-space: nowrap;
       box-shadow: 0 8px 18px var(--accent-glow);
     }
 
@@ -278,22 +280,29 @@
       letter-spacing: 0.06em;
       color: var(--accent);
       background: var(--accent-soft);
-      padding: 5px 12px;
+      padding: 7px 14px;
       border-radius: 999px;
     }
 
+    .step-card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
     h3 {
-      font-size: 21px;
+      font-size: 23px;
       font-weight: 800;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       color: var(--text-primary);
     }
 
     p {
-      font-size: 15px;
-      line-height: 1.65;
+      font-size: 15.8px;
+      line-height: 1.7;
       color: var(--text-secondary);
-      margin-bottom: 16px;
+      margin-bottom: 0;
     }
 
     .step-points {
@@ -302,13 +311,17 @@
       margin: 0;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
 
       li {
         display: flex;
         align-items: center;
-        gap: 8px;
-        font-size: 14px;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 14px;
+        background: var(--bg-surface-alt);
+        border: 1px solid var(--border-color);
+        font-size: 14.2px;
         font-weight: 600;
         color: var(--text-primary);
 

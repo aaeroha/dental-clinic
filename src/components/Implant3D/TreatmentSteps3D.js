@@ -16,6 +16,22 @@ import {
 import "./Implant3D.scss";
 
 const PART_INFO = {
+  cbct: {
+    label: "3D-скан КЛКТ",
+    title: "Конусно-лучевой 3D-сканер (КЛКТ)",
+    metric: "Точность 0,1 мм · 1 мин",
+    color: "#5ef2b8",
+    anchorLocal: new THREE.Vector3(0.65, 0.0, 0),
+    desc: "Послойное 3D-сканирование показывает объём костной ткани, скрытые воспаления, расположение нервов и гайморовых пазух для полностью безопасного планирования.",
+  },
+  tooth: {
+    label: "Родной зуб",
+    title: "Естественный зуб и корни",
+    metric: "Уязвим к кариесу",
+    color: "#e6d3a7",
+    anchorLocal: new THREE.Vector3(0, 0.68, 0),
+    desc: "Живой зуб со временем подвержен кариесу, зубному камню, трещинам и заболеваниям дёсен. Если корень спасти нельзя — его надёжно замещает титановый имплантат.",
+  },
   crown: {
     label: "Коронка",
     title: "Диоксид циркония / E.max",
@@ -64,28 +80,22 @@ const PART_INFO = {
     anchorLocal: new THREE.Vector3(0.55, 0.42, 0.15),
     desc: "Индивидуальная напечатанная на 3D-принтере каппа с металлической втулкой направляет имплантат строго по рассчитанной КЛКТ-оси без лишних разрезов.",
   },
-  tooth: {
-    label: "Зуб и корни",
-    title: "КЛКТ-диагностика корней",
-    metric: "Снимок за 1 минуту",
-    color: "#e6d3a7",
-    anchorLocal: new THREE.Vector3(0, 0.65, 0),
-    desc: "Конусно-лучевая томография (КЛКТ) в 3D оценивает состояние корней, каналов, пазух и плотность кости до долей миллиметра.",
-  },
 };
 
 const STEP_LEGEND_PARTS = {
-  0: ["tooth", "gum", "bone"],
+  0: ["cbct", "tooth", "gum", "bone"],
   1: ["crown", "gum", "bone"],
   2: ["implant", "guide", "gum", "bone"],
   3: ["crown", "abutment", "implant", "gum", "bone"],
 };
 
 const DEFAULT_STEP_CAM = { x: 1.65, y: 1.1, z: 4.55 };
+const MIN_STEP_DIST = 2.5;
+const MAX_STEP_DIST = 6.8;
 
 /**
- * Interactive 3D treatment stages simulator with raycast part hovering,
- * bidirectional legend pill highlighting, SVG leader line callout, and 360+zoom controls.
+ * Interactive 3D treatment stages simulator with vertical legend pills on the left,
+ * vertical zoom slider on the right, raycast part detection, and SVG leader callouts.
  */
 const TreatmentSteps3D = ({ activeStep }) => {
   const wrapperRef = useRef(null);
@@ -93,12 +103,14 @@ const TreatmentSteps3D = ({ activeStep }) => {
   const stepRef = useRef(activeStep);
   const cameraRef = useRef(null);
   const controlsRef = useRef(null);
-  const partAnchorRef = useRef(new Map());
   const stageGroupRef = useRef(null);
 
   const [hoveredFrom3D, setHoveredFrom3D] = useState(null);
   const [hoveredFromLegend, setHoveredFromLegend] = useState(null);
   const [calloutPos, setCalloutPos] = useState(null);
+  const [zoomPct, setZoomPct] = useState(() =>
+    Math.round(((MAX_STEP_DIST - DEFAULT_STEP_CAM.z) / (MAX_STEP_DIST - MIN_STEP_DIST)) * 100)
+  );
 
   const activePartId = hoveredFromLegend || hoveredFrom3D;
   const activePartRef = useRef(null);
@@ -114,13 +126,15 @@ const TreatmentSteps3D = ({ activeStep }) => {
     setCalloutPos(null);
   }, [activeStep]);
 
-  const zoomCamera = (factor) => {
+  const applyZoomPct = (pct) => {
+    const clamped = Math.max(0, Math.min(100, pct));
+    setZoomPct(clamped);
     const camera = cameraRef.current;
     const controls = controlsRef.current;
     if (!camera || !controls) return;
+    const dist = MAX_STEP_DIST - (clamped / 100) * (MAX_STEP_DIST - MIN_STEP_DIST);
     const offset = camera.position.clone().sub(controls.target);
-    const nextDist = THREE.MathUtils.clamp(offset.length() * factor, 2.5, 6.8);
-    offset.setLength(nextDist);
+    offset.setLength(dist);
     camera.position.copy(controls.target).add(offset);
     controls.update();
   };
@@ -132,6 +146,9 @@ const TreatmentSteps3D = ({ activeStep }) => {
     camera.position.set(DEFAULT_STEP_CAM.x, DEFAULT_STEP_CAM.y, DEFAULT_STEP_CAM.z);
     controls.target.set(0, -0.05, 0);
     controls.update();
+    setZoomPct(
+      Math.round(((MAX_STEP_DIST - DEFAULT_STEP_CAM.z) / (MAX_STEP_DIST - MIN_STEP_DIST)) * 100)
+    );
   };
 
   useEffect(() => {
@@ -167,29 +184,26 @@ const TreatmentSteps3D = ({ activeStep }) => {
     stageGroupRef.current = stageGroup;
     scene.add(stageGroup);
 
-    const { root: jawAnatomy, boneGroup, gumGroup } = createJawAnatomy();
+    const { root: jawAnatomy } = createJawAnatomy();
     stageGroup.add(jawAnatomy);
 
-    // Collect interactive part roots for emissive boost + anchor points
-    partAnchorRef.current.set("gum", gumGroup);
-    partAnchorRef.current.set("bone", boneGroup);
-
-    // --- Stage 0: CBCT Diagnostics ---
+    // --- Stage 0: CBCT Diagnostics (tooth + distinct moving CBCT scan ring) ---
     const step0Group = new THREE.Group();
     const diagTooth = createDiagnosticTooth();
     step0Group.add(diagTooth);
 
+    const scanRingGroup = new THREE.Group();
     const scanPlane = new THREE.Mesh(
-      new THREE.RingGeometry(0.76, 0.84, 52),
+      new THREE.RingGeometry(0.76, 0.85, 52),
       new THREE.MeshBasicMaterial({
         color: 0x5ef2b8,
         side: THREE.DoubleSide,
         transparent: true,
-        opacity: 0.9,
+        opacity: 0.92,
       })
     );
     scanPlane.rotation.x = Math.PI / 2;
-    step0Group.add(scanPlane);
+    scanRingGroup.add(scanPlane);
 
     const scanDisc = new THREE.Mesh(
       new THREE.CircleGeometry(0.76, 52),
@@ -202,7 +216,9 @@ const TreatmentSteps3D = ({ activeStep }) => {
       })
     );
     scanDisc.rotation.x = Math.PI / 2;
-    step0Group.add(scanDisc);
+    scanRingGroup.add(scanDisc);
+    tagPart(scanRingGroup, "cbct");
+    step0Group.add(scanRingGroup);
     stageGroup.add(step0Group);
 
     // --- Stage 1: 3D Digital Plan ---
@@ -266,7 +282,6 @@ const TreatmentSteps3D = ({ activeStep }) => {
     step3Group.add(finalCrown);
     stageGroup.add(step3Group);
 
-    // Cache original emissive intensity for clean hover glow feedback
     stageGroup.traverse((node) => {
       if (node.material && typeof node.material.emissiveIntensity === "number") {
         node.userData.baseEmissive = node.material.emissiveIntensity;
@@ -279,8 +294,8 @@ const TreatmentSteps3D = ({ activeStep }) => {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableZoom = true;
     controls.zoomSpeed = 0.85;
-    controls.minDistance = 2.5;
-    controls.maxDistance = 6.8;
+    controls.minDistance = MIN_STEP_DIST;
+    controls.maxDistance = MAX_STEP_DIST;
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
@@ -289,7 +304,16 @@ const TreatmentSteps3D = ({ activeStep }) => {
     controls.target.set(0, -0.05, 0);
     controlsRef.current = controls;
 
-    // Raycaster for 3D anatomical part detection on hover/tap
+    const syncSlider = () => {
+      const dist = camera.position.distanceTo(controls.target);
+      const pct = Math.round(
+        THREE.MathUtils.clamp((MAX_STEP_DIST - dist) / (MAX_STEP_DIST - MIN_STEP_DIST), 0, 1) *
+          100
+      );
+      setZoomPct((prev) => (prev === pct ? prev : pct));
+    };
+    controls.addEventListener("change", syncSlider);
+
     const raycaster = new THREE.Raycaster();
     const pointerNDC = new THREE.Vector2();
 
@@ -300,9 +324,11 @@ const TreatmentSteps3D = ({ activeStep }) => {
       pointerNDC.y = -((clientY - rect.top) / rect.height) * 2 + 1;
       raycaster.setFromCamera(pointerNDC, camera);
 
-      const hits = raycaster.intersectObjects([jawAnatomy, step0Group, step1Group, step2Group, step3Group], true);
+      const hits = raycaster.intersectObjects(
+        [jawAnatomy, step0Group, step1Group, step2Group, step3Group],
+        true
+      );
       for (const hit of hits) {
-        // Ignore objects belonging to hidden steps
         let cur = hit.object;
         let visible = true;
         let partId = null;
@@ -381,8 +407,7 @@ const TreatmentSteps3D = ({ activeStep }) => {
 
       if (s === 0) {
         const sweepY = -0.15 + Math.sin(t * 1.75) * 1.15;
-        scanPlane.position.y = sweepY;
-        scanDisc.position.y = sweepY;
+        scanRingGroup.position.y = sweepY;
       } else if (s === 1) {
         holoCrown.position.y = 0.32 + Math.sin(t * 2) * 0.05;
         holoCrown.rotation.y = t * 0.4;
@@ -396,7 +421,6 @@ const TreatmentSteps3D = ({ activeStep }) => {
         finalCrown.position.y = THREE.MathUtils.lerp(0.84, 0.26, seatCycle);
       }
 
-      // Highlight hovered 3D part gently via emissive glow
       const highlighted = activePartRef.current;
       controls.autoRotate = !highlighted;
 
@@ -404,7 +428,7 @@ const TreatmentSteps3D = ({ activeStep }) => {
         if (node.material && typeof node.material.emissiveIntensity === "number") {
           const isMatch = highlighted && node.userData.partId === highlighted;
           const targetEmissive = isMatch
-            ? Math.max(0.55, (node.userData.baseEmissive || 0.15) + 0.42)
+            ? Math.max(0.58, (node.userData.baseEmissive || 0.15) + 0.44)
             : node.userData.baseEmissive ?? 0.2;
           node.material.emissiveIntensity +=
             (targetEmissive - node.material.emissiveIntensity) * 0.16;
@@ -419,12 +443,13 @@ const TreatmentSteps3D = ({ activeStep }) => {
       controls.update();
       renderer.render(scene, camera);
 
-      // Update projected 2D anchor point for leader line callout when a part is active
       if (highlighted && PART_INFO[highlighted]) {
         const w = container.clientWidth;
         const h = container.clientHeight;
         projVec.copy(PART_INFO[highlighted].anchorLocal);
-        if (highlighted === "implant" && s === 2) {
+        if (highlighted === "cbct" && s === 0) {
+          projVec.y = scanRingGroup.position.y;
+        } else if (highlighted === "implant" && s === 2) {
           projVec.y = drivingImplant.position.y - 0.4;
         } else if (highlighted === "crown" && s === 3) {
           projVec.y = finalCrown.position.y + 0.48;
@@ -447,6 +472,7 @@ const TreatmentSteps3D = ({ activeStep }) => {
 
     return () => {
       cancelAnimationFrame(rafId);
+      controls.removeEventListener("change", syncSlider);
       renderer.domElement.removeEventListener("pointermove", onPointerMoveCanvas);
       renderer.domElement.removeEventListener("pointerleave", onPointerLeaveCanvas);
       window.removeEventListener("resize", handleResize);
@@ -472,7 +498,6 @@ const TreatmentSteps3D = ({ activeStep }) => {
         aria-label="Интерактивная 3D-модель этапа лечения — наведите на слой или покрутите"
       />
 
-      {/* Dynamic SVG Leader Line from hovered 3D anatomical point to info callout */}
       {activeInfo && calloutPos && (
         <>
           <svg
@@ -481,7 +506,12 @@ const TreatmentSteps3D = ({ activeStep }) => {
             aria-hidden="true"
           >
             <polyline
-              points={`${calloutPos.x},${calloutPos.y} ${Math.max(calloutPos.x + 36, calloutPos.w - 256)},${Math.max(96, Math.min(calloutPos.h - 110, calloutPos.y))} ${calloutPos.w - 246},114`}
+              points={`${calloutPos.x},${calloutPos.y} ${Math.max(
+                calloutPos.x + 28,
+                calloutPos.w - 296
+              )},${Math.max(88, Math.min(calloutPos.h - 110, calloutPos.y))} ${
+                calloutPos.w - 284
+              },112`}
               fill="none"
               stroke={activeInfo.color}
               strokeWidth="1.8"
@@ -512,8 +542,8 @@ const TreatmentSteps3D = ({ activeStep }) => {
         </>
       )}
 
-      {/* Interactive bidirectional color crumbs in bottom-left */}
-      <div className="steps-3d-legend">
+      {/* Left vertical interactive color crumbs */}
+      <div className="steps-3d-legend-vertical">
         {legendKeys.map((key) => {
           const item = PART_INFO[key];
           const isHighlighted = activePartId === key;
@@ -536,20 +566,32 @@ const TreatmentSteps3D = ({ activeStep }) => {
         })}
       </div>
 
-      <div className="steps-3d-controls">
+      {/* Right vertical zoom slider (+ / slider / - / reset) */}
+      <div className="zoom-slider-panel steps-3d-zoom">
         <button
           type="button"
           className="mini-3d-btn"
-          onClick={() => zoomCamera(0.82)}
+          onClick={() => applyZoomPct(zoomPct + 14)}
           aria-label="Приблизить 3D-модель"
           title="Приблизить"
         >
           <FiPlus />
         </button>
+        <div className="zoom-range-track">
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={zoomPct}
+            onChange={(e) => applyZoomPct(Number(e.target.value))}
+            aria-label="Масштаб 3D-модели"
+            className="zoom-range-input"
+          />
+        </div>
         <button
           type="button"
           className="mini-3d-btn"
-          onClick={() => zoomCamera(1.22)}
+          onClick={() => applyZoomPct(zoomPct - 14)}
           aria-label="Отдалить 3D-модель"
           title="Отдалить"
         >

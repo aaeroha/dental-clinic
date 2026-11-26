@@ -40,6 +40,12 @@
   overflow: hidden;
   contain: layout style;
 
+  .container {
+    max-width: 1360px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .banner-tech-backdrop {
     position: absolute;
     inset: 0;
@@ -247,9 +253,9 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 28px;
 
   .banner-doctor-col {
     position: relative;

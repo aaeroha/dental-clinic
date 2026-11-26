@@ -184,15 +184,21 @@ h6 {
 
 // Unified Swiper styling across sections
 .swiper-pagination-bullet {
-  background: var(--text-muted);
-  opacity: 0.4;
+  width: 10px;
+  height: 10px;
+  background: rgba(24, 25, 69, 0.25);
+  opacity: 1;
   transition: width 0.25s ease, opacity 0.25s ease, background-color 0.25s ease;
 }
 
+[data-theme="dark"] .swiper-pagination-bullet {
+  background: rgba(255, 255, 255, 0.36);
+}
+
 .swiper-pagination-bullet-active {
-  background: var(--accent);
+  background: var(--accent) !important;
   opacity: 1;
-  width: 22px;
+  width: 24px;
   border-radius: 6px;
 }
 

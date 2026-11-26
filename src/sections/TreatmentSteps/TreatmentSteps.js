@@ -153,11 +153,13 @@ const TreatmentSteps = () => {
                   onClick={() => handleSelectStep(idx)}
                 >
                   <div className="step-card-top">
-                    <span className="step-number">{step.num}</span>
+                    <span className="step-number">Этап {step.num}</span>
                     <span className="step-tag">{step.badge}</span>
                   </div>
-                  <h3>{step.title}</h3>
-                  <p>{step.text}</p>
+                  <div className="step-card-body">
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </div>
                   <ul className="step-points">
                     {step.points.map((pt) => (
                       <li key={pt}>

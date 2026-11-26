@@ -167,18 +167,18 @@ const Sertificates = () => {
         <Reveal delay={100}>
           <Swiper
             modules={[Pagination, A11y, Autoplay]}
-            spaceBetween={28}
+            spaceBetween={16}
             slidesPerView={1}
             pagination={{ clickable: true }}
             loop
             breakpoints={{
               640: {
                 slidesPerView: 2,
-                spaceBetween: 28,
+                spaceBetween: 18,
               },
               1100: {
                 slidesPerView: 3,
-                spaceBetween: 34,
+                spaceBetween: 20,
               },
             }}
             autoplay={{
