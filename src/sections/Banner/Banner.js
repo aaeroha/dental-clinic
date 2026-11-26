@@ -123,7 +123,10 @@ const Banner = () => {
                   <h1 className="hero-title--ghost" aria-hidden="true">
                     {HERO_TITLE}
                   </h1>
-                  <h1 className="hero-title--typed">
+                  <h1
+                    className="hero-title--typed"
+                    aria-label="Стоматолог-хирург и имплантолог в Москве — Боченков Роман Викторович"
+                  >
                     {typedTitle}
                     {typingInTitle && (
                       <span className="typing-cursor" aria-hidden="true">|</span>
